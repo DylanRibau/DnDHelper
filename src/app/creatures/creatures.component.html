@@ -1,11 +1,11 @@
 <div class="wrapper">
   <div class="left">
     <div class="row">
-      <div class="col-sm-3 individual-cards" *ngFor="let creature of allCreatures">
+      <div class="col-sm-4 individual-cards" *ngFor="let creature of allCreatures">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">{{creature.name}}</h5>
-            <a href="#" class="btn btn-primary">More Info</a>
+            <a (click)="displayCreature(creature)" class="btn btn-primary">More Info</a>
           </div>
         </div>
       </div>
@@ -13,8 +13,7 @@
   </div>
 
   <div class="right">
-    <div class="line-seperator">
-
-    </div>
+    <div class="line-seperator"></div>
+    <pre [innerHtml]="currentCreature" class="json-display"></pre>
   </div>
 </div>

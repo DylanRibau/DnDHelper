@@ -20,3 +20,24 @@ h1, nav{
 .navbar-brand{
     float: left;
 }
+
+.json-string     {
+  color: rgba(255, 173, 51, 0.87);
+}
+
+.json-key  {
+  color: rgba(71, 209, 209, 0.87);
+  font-weight: bold;
+}
+
+.json-number  {
+  color: rgba(255, 83, 26, 0.87);
+}
+
+.json-boolean {
+  color: teal;
+}
+
+.json-null    {
+  color: dimgray;
+}

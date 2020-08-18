@@ -17,7 +17,7 @@
 }
 
 .left{
-  flex: 0 0 60%;
+  flex: 0 0 40%;
 }
 
 .right{
@@ -29,4 +29,18 @@
   width: 1px;
   height: 100%;
   background-color: #f7ce65;
+  margin-right: 5px;
+}
+
+.json-display{
+  color: rgba(255, 255, 255, 0.87);
+  font-family: 'Roboto', sans-serif;
+}
+
+pre{
+  white-space: pre-wrap;
+}
+
+.json-number{
+  color: white;
 }
