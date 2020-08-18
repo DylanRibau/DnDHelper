@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CreaturesService } from './creatures.service';
 
+declare var prettyPrintJson: any;
+
 @Component({
   selector: 'app-creatures',
   templateUrl: './creatures.component.html',
@@ -21,9 +23,6 @@ export class CreaturesComponent implements OnInit {
   };
 
   displayCreature(creature){
-    //this.currentCreature = JSON.stringify(creature, null, 4);
-    //this.currentCreature = prettyPrintJson.toHtml(creature);
     this.currentCreature = prettyPrintJson.toHtml(creature);
-    console.log(this.currentCreature);
   };
 }
