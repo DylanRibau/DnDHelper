@@ -1,0 +1,22 @@
+html {
+    height: 100%;
+}
+
+body {
+    background-color: #262626;
+    color: rgba(255, 255, 255, 0.87);
+    font-family: 'Roboto', sans-serif;
+}
+
+h1, nav{
+    font-family: 'Gentium Basic', serif;
+}
+
+.pageCentered{
+    width: 90%;
+    margin: auto;
+}
+
+.navbar-brand{
+    float: left;
+}
