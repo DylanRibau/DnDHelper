@@ -7,14 +7,15 @@ import { CreaturesService } from './creatures.service';
   styleUrls: ['./creatures.component.css']
 })
 export class CreaturesComponent implements OnInit {
-  responseJson = {};
+  allCreatures = [];
 
   constructor(private creaturesService: CreaturesService) { }
 
   ngOnInit(): void {
     this.creaturesService.getAllCreatures().subscribe(data => {
-      this.responseJson = JSON.stringify(data);
+      for(const[key, value] of Object.entries(data)){
+        this.allCreatures.push(value.creature);
+      };
     });
   };
-
 }

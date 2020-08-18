@@ -1,0 +1,32 @@
+.card{
+  background-color: #595959;
+  width: 200px;
+  margin: auto;
+}
+
+.individual-cards{
+  margin-bottom: 10px;
+}
+
+.card-body{
+  height: 200px;
+}
+
+.wrapper{
+  display: flex;
+}
+
+.left{
+  flex: 0 0 60%;
+}
+
+.right{
+  flex: 1;
+}
+
+.line-seperator{
+  float: left;
+  width: 1px;
+  height: 100%;
+  background-color: #f7ce65;
+}
