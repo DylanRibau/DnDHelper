@@ -1,19 +1,41 @@
 <div class="wrapper">
-  <div class="left">
+  <div [className]="leftClass">
     <div class="row">
-      <div class="col-sm-4 individual-cards" *ngFor="let creature of allCreatures">
+      <div class="col-sm-12">
+        <input class="searchbar" (keyup)="search($event)" type="text" placeholder="search" [(ngModel)]="keyword">
+        <a class="btn btn-success tools-add" routerLink="/addCreatures">Add</a>
+      </div>
+      <div [className]="cardClass" *ngFor="let creature of displayedCreatures">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">{{creature.name}}</h5>
-            <a (click)="displayCreature(creature)" class="btn btn-primary">More Info</a>
+            <h5 class="card-title">{{creature.creature.name}}</h5>
+          </div>
+          <div class="card-footer">
+            <a (click)="displayCreature(creature)" class="btn btn-primary"><img src="assets/images/storage.png"></a>
+            <a (click)="editCreature(creature)" class="btn btn-light">
+              <img src="assets/images/edit.png">
+            </a>
+            <a (click)="deleteCreature(creature)" class="btn btn-danger trash">
+              <img src="assets/images/trash.png">
+            </a>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="right">
+  <div class="right" *ngIf="currentCreature != ''">
     <div class="line-seperator"></div>
+    <div class="creature-info-header">
+      <h1 class="creature-info-name">{{currentCreatureName}}</h1>
+      <a (click)="collapseCreature()" class="btn btn-danger collapse-button">
+        <img src="assets/images/compress.png">
+      </a>
+    </div>
     <pre [innerHtml]="currentCreature" class="json-display"></pre>
   </div>
 </div>
+
+<footer>
+  <div>Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+</footer>

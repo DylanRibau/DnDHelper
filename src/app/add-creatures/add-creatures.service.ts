@@ -2,18 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { ICreature } from '@app/data/ICreature.js';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CreaturesService{
+export class AddCreaturesService{
+  creature: ICreature;
+
   constructor(private http: HttpClient) { }
 
-  getAllCreatures() {
-    return this.http.get('/api/creatures');
-  }
+  postCreature(creature){
+    return this.http.post('/api/creatures/send', creature);
+  };
 
-  deleteCreature(id){
-    return this.http.delete('/api/creatures/' + id);
+  putCreature(creature){
+    return this.http.put('/api/creatures', creature);
   }
 }

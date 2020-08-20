@@ -1,0 +1,12 @@
+<div class="json-display">
+  <div class="statusMessage">
+    <h1 [className]="statusMessageClass">{{statusMessage}}</h1>
+  </div>
+</div>
+<div class="json-display">
+  <textarea name="name" rows="25" cols="150" [(ngModel)]="creatureJson" (blur)="blurEvent()" placeholder="Enter JSON for creature"></textarea>
+</div>
+<div class="json-display">
+  <button class="btn btn-success" (click)="addCreature()">Add</button>
+  <button class="btn btn-danger" (click)="resetJSON()">Reset</button>
+</div>

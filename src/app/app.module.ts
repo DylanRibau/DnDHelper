@@ -6,18 +6,22 @@ import { CreaturesComponent } from './creatures/creatures.component';
 import { InitiativeComponent } from './initiative/initiative.component';
 import { IndexComponent } from './index/index.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { AddCreaturesComponent } from './add-creatures/add-creatures.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreaturesComponent,
     InitiativeComponent,
-    IndexComponent
+    IndexComponent,
+    AddCreaturesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
