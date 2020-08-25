@@ -4,10 +4,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CreaturesComponent } from './creatures/creatures.component';
 import { InitiativeComponent } from './initiative/initiative.component';
+import { CombatDialogComponent } from './initiative/initiative.component';
 import { IndexComponent } from './index/index.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AddCreaturesComponent } from './add-creatures/add-creatures.component';
+import { MatDialogModule, MatDialogConfig } from "@angular/material/dialog";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -15,15 +18,19 @@ import { AddCreaturesComponent } from './add-creatures/add-creatures.component';
     CreaturesComponent,
     InitiativeComponent,
     IndexComponent,
-    AddCreaturesComponent
+    AddCreaturesComponent,
+    CombatDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    BrowserAnimationsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CombatDialogComponent]
 })
 export class AppModule { }

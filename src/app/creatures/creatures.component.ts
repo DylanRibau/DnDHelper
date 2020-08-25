@@ -59,7 +59,7 @@ export class CreaturesComponent implements OnInit {
 
     this.displayedCreatures = [];
     this.allCreatures.forEach(element => {
-      if(element.name.toLowerCase().indexOf(this.keyword.toLowerCase()) != -1)
+      if(element.creature.name.toLowerCase().indexOf(this.keyword.toLowerCase()) != -1)
         this.displayedCreatures.push(element);
     });
     this.prevKeyword = this.keyword;

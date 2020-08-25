@@ -1,1 +1,31 @@
-<p>initiative works!</p>
+<div class="wrapper">
+  <div class="combat-setup" *ngIf="combatSetup">
+    <div class="creatures">
+      <table class="table table-dark table-hover">
+        <thead>
+          <tr>
+            <th><button class="btn btn-success" (click)="openDialog()" mat-button>Add</button></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let creature of combatCreatures">
+            <td>{{creature.creature.name}}</td>
+            <td>x{{creature.amount}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td><button class="btn btn-primary" (click)="startCombat()">Start Combat</button></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  <div class="combat" *ngIf="!combatSetup">
+    <h1>Hello There</h1>
+  </div>
+  <div class="additional-info">
+    <h1>Hello</h1>
+  </div>
+</div>
+<p>Hello</p>
