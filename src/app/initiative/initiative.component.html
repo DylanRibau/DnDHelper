@@ -1,31 +1,193 @@
 <div class="wrapper">
   <div class="combat-setup" *ngIf="combatSetup">
-    <div class="creatures">
+    <div class="combat-setup-inner">
+      <div class="creatures-tools">
+        <button class="btn btn-success add-button" (click)="openDialog()" mat-button>Add</button>
+      </div>
       <table class="table table-dark table-hover">
-        <thead>
-          <tr>
-            <th><button class="btn btn-success" (click)="openDialog()" mat-button>Add</button></th>
-          </tr>
-        </thead>
         <tbody>
-          <tr *ngFor="let creature of combatCreatures">
-            <td>{{creature.creature.name}}</td>
+          <tr *ngFor="let creature of combatSetupCreatures">
+            <td><h5>{{creature.creature.name}}</h5></td>
             <td>x{{creature.amount}}</td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
-            <td><button class="btn btn-primary" (click)="startCombat()">Start Combat</button></td>
+            <td colspan="2"><button class="btn btn-primary" (click)="startCombat()">Start Combat</button></td>
           </tr>
         </tfoot>
       </table>
     </div>
   </div>
+
   <div class="combat" *ngIf="!combatSetup">
-    <h1>Hello There</h1>
+    <div class="combat-inner">
+      <div class="creatures-tools">
+        <button class="btn btn-success add-button" (click)="openDialogInCombat()" mat-button>Add</button>
+      </div>
+      <table class="table table-dark table-hover">
+        <tbody>
+          <tr [className]="creature.class" *ngFor="let creature of combatCreatures">
+            <td><input class="initiative-input" type="number" [(ngModel)]="creature.initiative" /></td>
+            <td>
+              <h5>{{creature.creature.name}}</h5>
+              <div></div>
+              <span class="info-label">AC</span><span class="info-value">{{creature.creature.armor_class}}</span>
+              <div></div>
+              <span class="info-header">Ability Scores</span>
+              <span class="info-label">Str</span><span class="info-value">{{utilService.calculateModifierString(creature.creature.strength)}}</span>
+              <span class="info-label">Dex</span><span class="info-value">{{utilService.calculateModifierString(creature.creature.dexterity)}}</span>
+              <span class="info-label">Con</span><span class="info-value">{{utilService.calculateModifierString(creature.creature.constitution)}}</span>
+              <span class="info-label">Int</span><span class="info-value">{{utilService.calculateModifierString(creature.creature.intelligence)}}</span>
+              <span class="info-label">Wis</span><span class="info-value">{{utilService.calculateModifierString(creature.creature.wisdom)}}</span>
+              <span class="info-label">Cha</span><span class="info-value">{{utilService.calculateModifierString(creature.creature.charisma)}}</span>
+            </td>
+            <td class="hit-points-container">
+              <div class="hit-points">
+                <input class="initiative-input" type="number" [(ngModel)]="creature.current_hit_points" />
+                <div class="line"></div>
+                <input class="initiative-input" type="number" [(ngModel)]="creature.creature.hit_points" />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="combat-tools">
+        <div>
+          <span class="combat-tools-label">Rounds</span>
+          <span class="combat-tools-value">{{rounds}}</span>
+        </div>
+        <div>
+          <span class="combat-tools-label">Turn</span>
+          <span class="combat-tools-value">{{turn}}</span>
+        </div>
+        <button class="btn btn-primary" (click)="initializeCombat()" *ngIf="rounds == 0">Start</button>
+        <button class="btn btn-primary" (click)="nextTurn()" *ngIf="rounds > 0">Next</button>
+      </div>
+    </div>
   </div>
+
   <div class="additional-info">
-    <h1>Hello</h1>
+    <div class="creature-info" *ngIf="currentCreature != null">
+      <h1 class="creature-name">{{currentCreature.creature.name}}</h1>
+      <div class="creature-creature-type">
+        <span>{{currentCreature.creature.size}} {{currentCreature.creature.type}}</span>
+        <span *ngIf="currentCreature.creature.subtype != null"> ({{currentCreature.creature.subtype}})</span>
+        <span>, {{currentCreature.creature.alignment}}</span>
+      </div>
+
+      <div class="line-break"></div>
+      <div class="creature-combat-information">
+        <div class="armour-class">
+          <span class="creature-red-label">Armour Class</span>
+          <span class="creature-red-value">{{currentCreature.creature.armor_class}}</span>
+        </div>
+        <div class="hit-points">
+          <span class="creature-red-label">Hit Points</span>
+          <span class="creature-red-value">{{currentCreature.creature.hit_points}} ({{currentCreature.creature.hit_dice}})</span>
+        </div>
+        <div class="speed">
+          <span class="creature-red-label">Speed</span>
+          <span class="creature-red-value">{{utilService.generateSpeedString(currentCreature)}}</span>
+        </div>
+      </div>
+
+      <div class="line-break"></div>
+      <div class="creature-ability-section">
+        <table class="creature-ability-table">
+          <thead>
+            <tr>
+              <th class="creature-red-label">Str</th>
+              <th class="creature-red-label">Dex</th>
+              <th class="creature-red-label">Con</th>
+              <th class="creature-red-label">Int</th>
+              <th class="creature-red-label">Wis</th>
+              <th class="creature-red-label">Cha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="creature-red-value">{{currentCreature.creature.strength}} ({{utilService.calculateModifierString(currentCreature.creature.strength)}})</td>
+              <td class="creature-red-value">{{currentCreature.creature.dexterity}} ({{utilService.calculateModifierString(currentCreature.creature.dexterity)}})</td>
+              <td class="creature-red-value">{{currentCreature.creature.constitution}} ({{utilService.calculateModifierString(currentCreature.creature.constitution)}})</td>
+              <td class="creature-red-value">{{currentCreature.creature.intelligence}} ({{utilService.calculateModifierString(currentCreature.creature.intelligence)}})</td>
+              <td class="creature-red-value">{{currentCreature.creature.wisdom}} ({{utilService.calculateModifierString(currentCreature.creature.wisdom)}})</td>
+              <td class="creature-red-value">{{currentCreature.creature.charisma}} ({{utilService.calculateModifierString(currentCreature.creature.charisma)}})</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="line-break"></div>
+      <div class="creature-proficiences">
+        <div class="creature-proficiences-saving-throws" *ngIf="currentCreature.creature.saving_throws.length > 0">
+          <span class="creature-red-label">Saving Throws</span>
+          <span class="creature-red-value">{{utilService.generateListItemString(currentCreature.creature.saving_throws, true)}}</span>
+        </div>
+        <div class="creature-proficiences-skills" *ngIf="currentCreature.creature.skills.length > 0">
+          <span class="creature-red-label">Skills</span>
+          <span class="creature-red-value">{{utilService.generateListItemString(currentCreature.creature.skills, true)}}</span>
+        </div>
+        <div class="creature-proficiences-damage-vulnerabilities" *ngIf="currentCreature.creature.damage_vulnerabilities.length > 0">
+          <span class="creature-red-label">Damage Vulnerabilities</span>
+          <span class="creature-red-value">{{utilService.generateSimpleListItemString(currentCreature.creature.damage_vulnerabilities)}}</span>
+        </div>
+        <div class="creature-proficiences-damage-resistances" *ngIf="currentCreature.creature.damage_resistances.length > 0">
+          <span class="creature-red-label">Damage Resistances</span>
+          <span class="creature-red-value">{{utilService.generateSimpleListItemString(currentCreature.creature.damage_resistances)}}</span>
+        </div>
+        <div class="creature-proficiences-damage-immunities" *ngIf="currentCreature.creature.damage_immunities.length > 0">
+          <span class="creature-red-label">Damage Immunities</span>
+          <span class="creature-red-value">{{utilService.generateSimpleListItemString(currentCreature.creature.damage_immunities)}}</span>
+        </div>
+        <div class="creature-proficiences-condition-immunities" *ngIf="currentCreature.creature.condition_immunities.length > 0">
+          <span class="creature-red-label">Damage Resistances</span>
+          <span class="creature-red-value">{{utilService.generateSimpleListItemString(currentCreature.creature.condition_immunities)}}</span>
+        </div>
+        <div class="creature-proficiences-senses">
+          <span class="creature-red-label">Senses</span>
+          <span class="creature-red-value">{{utilService.generateListItemString(currentCreature.creature.senses, false)}}</span>
+        </div>
+        <div class="creature-proficiences-languages">
+          <span class="creature-red-label">Languages</span>
+          <span class="creature-red-value">{{currentCreature.creature.languages}}</span>
+        </div>
+        <div class="creature-proficiences-challenge">
+          <span class="creature-red-label">Challenge</span>
+          <span class="creature-red-value">{{currentCreature.creature.challenge_rating}}</span>
+        </div>
+      </div>
+
+      <div class="line-break"></div>
+      <div class="creature-special-abilities">
+        <span *ngFor="let creature of currentCreature.creature.special_abilities">
+          <span class="creature-black-label">{{creature.name}}.</span>
+          <span class="creature-black-value">{{creature.desc}}</span>
+        </span>
+      </div>
+
+      <div class="creature-section-title">
+        <span class="capital">A</span>CTIONS
+      </div>
+      <div class="line-break"></div>
+      <div class="creature-actions">
+        <div class="creature-action-action" *ngFor="let creature of currentCreature.creature.actions">
+          <span class="creature-black-label">{{creature.name}}.</span>
+          <span class="italics" *ngIf="creature.type">{{creature.type}}: </span>
+          <span class="creature-black-value">{{creature.desc}}</span>
+        </div>
+      </div>
+
+      <div class="creature-legendary-actions" *ngIf="currentCreature.creature.legendary_actions.length > 0">
+        <div class="creature-section-title">
+          <span class="capital">L</span>EGENDARY <span class="capital">A</span>CTIONS
+        </div>
+        <div class="line-break"></div>
+        <div class="creature-legendary-action-action" *ngFor="let creature of currentCreature.creature.legendary_actions">
+          <span class="creature-black-label">{{creature.name}}.</span>
+          <span class="creature-black-value">{{creature.desc}}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<p>Hello</p>

@@ -15,7 +15,7 @@
         <td>{{creature.creature.name}}</td>
         <td>
           <button class="btn btn-success" (click)="addCreature(creature)">Add</button>
-          <input name="numberOf" class="add-number" type="number" min="1" [(ngModel)]="creature.amount" />
+          <input name="numberOf" class="add-number" type="number" min="1" [(ngModel)]="creature.amount" *ngIf="!data.combat"/>
         </td>
       </tr>
     </tbody>

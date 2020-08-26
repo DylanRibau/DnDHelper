@@ -1,17 +1,170 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
 .wrapper{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 10px 20px;
 }
 
-.combat-setup{
-  background-color: #737373;
+.combat-setup, .combat{
   flex: 0 0 auto;
-  padding: 20px;
   min-width: 30%;
 }
 
+.combat-setup-inner, .combat-inner{
+  background-color: rgba(51, 51, 51, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+}
+
 .additional-info{
-  background-color: #737373;
-  flex: 0 1 auto;
+  flex: 0 0 auto;
+  align-self: center;
+}
+
+.initiative-input{
+  text-align: center;
+  background-color: inherit;
+  color: rgba(255, 255, 255, 0.87);
+  width: 2em;
+  border: none;
+}
+
+.line{
+  background-color: rgba(255, 255, 255, 0.87);
+  height: 1px;
+}
+
+h5{
+  color: rgba(255, 179, 102, 0.87);
+}
+
+.info-label, .combat-tools-value{
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.info-value{
+  color: rgba(255, 255, 255, 0.3);
+  margin-left: 5px;
+  margin-right: 15px;
+}
+
+.info-header, .combat-tools-label{
+  color: rgba(255, 255, 255, 0.65);
+  margin-right: 10px;
+}
+
+.hit-points-container{
+  display: flex;
+  align-items: center;
+}
+
+.hit-points{
+  min-height: 100%;
+}
+
+.creatures-tools{
+  display: flex;
+}
+
+.add-button{
+  margin: 5px;
+  flex: auto;
+}
+
+.combat-tools{
+  display: flex;
+  justify-content: space-between;
+}
+
+.combat-tools-label{
+  margin-right: 5px;
+}
+
+.current-creature{
+  background-color: rgba(69, 77, 85, 0.5);
+}
+
+.italics{
+  font-style: italic;
+}
+
+.capital{
+  font-size: 1.4em;
+}
+
+/* Current creature info section */
+.creature-info{
+  background-image: url("../../assets/images/Statblock background.jpg");
+  min-width: 500px;
+  min-height: 500px;
+  color: rgba(0, 0, 0, 0.87);
+  margin-left: 10em;
+  padding: 10px;
+  box-shadow: 10px 20px 20px 5px rgba(0, 0, 0, 0.5);
+}
+
+.creature-name{
+  color: rgb(102, 0, 0);
+  margin-bottom: 0px;
+}
+
+.creature-creature-type{
+  font-style: italic;
+}
+
+.line-break{
+  background: red;
+  height: .25em;
+  width: 100%;
+}
+
+.creature-red-label{
+  color: rgba(179, 0, 0, 0.87);
+  font-weight: bold;
+  padding-right: 0.5em;
+}
+
+.creature-red-value, .creature-section-title{
+  color: rgba(179, 0, 0, 0.87);
+}
+
+.creature-black-label{
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: bold;
+  font-style: italic;
+  padding-right: 0.5em;
+}
+
+.creature-black-value{
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.creature-ability-table{
+  width: 100%;
+  text-align: center;
+}
+
+.creature-special-abilities{
+  padding: 1em 0em;
+}
+
+.creature-section-title{
+  font-size: 1.3em;
+  margin-bottom: 0px;
+  font-weight: normal;
+}
+
+.creature-action-action, .creature-legendary-action-action{
+  padding: 0.5em 0em;
 }
