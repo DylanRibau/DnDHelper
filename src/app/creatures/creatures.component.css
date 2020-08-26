@@ -1,5 +1,5 @@
 .card{
-  background: linear-gradient(to bottom, #cc6600 0%, #cc0000 90%);
+  background-image: url("../../assets/images/Page Background.jpg");
   max-width: 200px;
   margin: auto;
 }
@@ -59,6 +59,12 @@ pre{
 
 h1{
   text-align: center;
+}
+
+h3{
+  color: rgb(77, 38, 0);
+  font-weight: bold;
+  font-family: 'Gentium Basic', serif;
 }
 
 .trash{

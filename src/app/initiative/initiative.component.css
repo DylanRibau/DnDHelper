@@ -29,7 +29,6 @@ input[type=number] {
 
 .additional-info{
   flex: 0 0 auto;
-  align-self: center;
 }
 
 .initiative-input{
@@ -85,6 +84,8 @@ h5{
 .combat-tools{
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+  padding: 10px;
 }
 
 .combat-tools-label{
@@ -107,6 +108,7 @@ h5{
 .creature-info{
   background-image: url("../../assets/images/Statblock background.jpg");
   min-width: 500px;
+  max-width: 700px;
   min-height: 500px;
   color: rgba(0, 0, 0, 0.87);
   margin-left: 10em;
