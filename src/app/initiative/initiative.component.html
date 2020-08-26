@@ -23,6 +23,7 @@
   <div class="combat" *ngIf="!combatSetup">
     <div class="combat-inner">
       <div class="creatures-tools">
+        <button class="btn btn-info sort-button" (click)="sortInCombat()">Sort</button>
         <button class="btn btn-success add-button" (click)="openDialogInCombat()" mat-button>Add</button>
       </div>
       <div class="combat-tools">
@@ -42,7 +43,7 @@
           <tr [className]="creature.class" *ngFor="let creature of combatCreatures">
             <td><input class="initiative-input" type="number" [(ngModel)]="creature.initiative" /></td>
             <td>
-              <h5>{{creature.creature.name}}</h5>
+              <input class="initiative-input-name" type="text" [(ngModel)]="creature.creature.name" />
               <div></div>
               <span class="info-label">AC</span><span class="info-value">{{creature.creature.armor_class}}</span>
               <div></div>
@@ -73,7 +74,7 @@
       <div class="creature-creature-type">
         <span>{{currentCreature.creature.size}} {{currentCreature.creature.type}}</span>
         <span *ngIf="currentCreature.creature.subtype != null"> ({{currentCreature.creature.subtype}})</span>
-        <span>, {{currentCreature.creature.alignment}}</span>
+        <span *ngIf="currentCreature.creature.alignment != null">, {{currentCreature.creature.alignment}}</span>
       </div>
 
       <div class="line-break"></div>
@@ -88,7 +89,7 @@
         </div>
         <div class="speed">
           <span class="creature-red-label">Speed</span>
-          <span class="creature-red-value">{{utilService.generateSpeedString(currentCreature)}}</span>
+          <span class="creature-red-value">{{utilService.generateListItemString(currentCreature.creature.speed, false)}}</span>
         </div>
       </div>
 
@@ -120,31 +121,31 @@
 
       <div class="line-break"></div>
       <div class="creature-proficiences">
-        <div class="creature-proficiences-saving-throws" *ngIf="currentCreature.creature.saving_throws.length > 0">
+        <div class="creature-proficiences-saving-throws" *ngIf="currentCreature.creature.saving_throws != null && currentCreature.creature.saving_throws.length > 0">
           <span class="creature-red-label">Saving Throws</span>
           <span class="creature-red-value">{{utilService.generateListItemString(currentCreature.creature.saving_throws, true)}}</span>
         </div>
-        <div class="creature-proficiences-skills" *ngIf="currentCreature.creature.skills.length > 0">
+        <div class="creature-proficiences-skills" *ngIf="currentCreature.creature.skills != null && currentCreature.creature.skills.length > 0">
           <span class="creature-red-label">Skills</span>
           <span class="creature-red-value">{{utilService.generateListItemString(currentCreature.creature.skills, true)}}</span>
         </div>
-        <div class="creature-proficiences-damage-vulnerabilities" *ngIf="currentCreature.creature.damage_vulnerabilities.length > 0">
+        <div class="creature-proficiences-damage-vulnerabilities" *ngIf="currentCreature.creature.damage_vulnerabilities != null && currentCreature.creature.damage_vulnerabilities.length > 0">
           <span class="creature-red-label">Damage Vulnerabilities</span>
           <span class="creature-red-value">{{utilService.generateSimpleListItemString(currentCreature.creature.damage_vulnerabilities)}}</span>
         </div>
-        <div class="creature-proficiences-damage-resistances" *ngIf="currentCreature.creature.damage_resistances.length > 0">
+        <div class="creature-proficiences-damage-resistances" *ngIf="currentCreature.creature.damage_resistances != null && currentCreature.creature.damage_resistances.length > 0">
           <span class="creature-red-label">Damage Resistances</span>
           <span class="creature-red-value">{{utilService.generateSimpleListItemString(currentCreature.creature.damage_resistances)}}</span>
         </div>
-        <div class="creature-proficiences-damage-immunities" *ngIf="currentCreature.creature.damage_immunities.length > 0">
+        <div class="creature-proficiences-damage-immunities" *ngIf="currentCreature.creature.damage_immunities != null && currentCreature.creature.damage_immunities.length > 0">
           <span class="creature-red-label">Damage Immunities</span>
           <span class="creature-red-value">{{utilService.generateSimpleListItemString(currentCreature.creature.damage_immunities)}}</span>
         </div>
-        <div class="creature-proficiences-condition-immunities" *ngIf="currentCreature.creature.condition_immunities.length > 0">
+        <div class="creature-proficiences-condition-immunities" *ngIf="currentCreature.creature.condition_immunities != null && currentCreature.creature.condition_immunities.length > 0">
           <span class="creature-red-label">Damage Resistances</span>
           <span class="creature-red-value">{{utilService.generateSimpleListItemString(currentCreature.creature.condition_immunities)}}</span>
         </div>
-        <div class="creature-proficiences-senses">
+        <div class="creature-proficiences-senses" *ngIf="currentCreature.creature.senses != null && currentCreature.creature.senses.length > 0">
           <span class="creature-red-label">Senses</span>
           <span class="creature-red-value">{{utilService.generateListItemString(currentCreature.creature.senses, false)}}</span>
         </div>
@@ -158,27 +159,31 @@
         </div>
       </div>
 
-      <div class="line-break"></div>
-      <div class="creature-special-abilities">
-        <span *ngFor="let creature of currentCreature.creature.special_abilities">
-          <span class="creature-black-label">{{creature.name}}.</span>
-          <span class="creature-black-value">{{creature.desc}}</span>
-        </span>
-      </div>
-
-      <div class="creature-section-title">
-        <span class="capital">A</span>CTIONS
-      </div>
-      <div class="line-break"></div>
-      <div class="creature-actions">
-        <div class="creature-action-action" *ngFor="let creature of currentCreature.creature.actions">
-          <span class="creature-black-label">{{creature.name}}.</span>
-          <span class="italics" *ngIf="creature.type">{{creature.type}}: </span>
-          <span class="creature-black-value">{{creature.desc}}</span>
+      <div class="creature-special-abilities-section" *ngIf="currentCreature.creature.special_abilities != null && currentCreature.creature.special_abilities.length > 0">
+        <div class="line-break"></div>
+        <div class="creature-special-abilities">
+          <div class="creature-special-abilities-ability" *ngFor="let creature of currentCreature.creature.special_abilities">
+            <span class="creature-black-label">{{creature.name}}.</span>
+            <span class="creature-black-value">{{creature.desc}}</span>
+          </div>
         </div>
       </div>
 
-      <div class="creature-legendary-actions" *ngIf="currentCreature.creature.legendary_actions.length > 0">
+      <div class="creature-actions-section" *ngIf="currentCreature.creature.actions != null && currentCreature.creature.actions.length > 0">
+        <div class="creature-section-title">
+          <span class="capital">A</span>CTIONS
+        </div>
+        <div class="line-break"></div>
+        <div class="creature-actions">
+          <div class="creature-action-action" *ngFor="let creature of currentCreature.creature.actions">
+            <span class="creature-black-label">{{creature.name}}.</span>
+            <span class="italics" *ngIf="creature.type">{{creature.type}}: </span>
+            <span class="creature-black-value">{{creature.desc}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="creature-legendary-actions-section" *ngIf="currentCreature.creature.legendary_actions != null && currentCreature.creature.legendary_actions.length > 0">
         <div class="creature-section-title">
           <span class="capital">L</span>EGENDARY <span class="capital">A</span>CTIONS
         </div>

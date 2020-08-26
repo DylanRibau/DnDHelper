@@ -87,15 +87,7 @@ export class InitiativeComponent implements OnInit {
         this.combatCreatures.push(newCreature);
       };
 
-      this.combatCreatures.sort((a, b) => {
-        if(a.initiative == b.initiative){
-          if(a.creature.dexterity == b.creature.dexterity){
-            return a.creature.name.localeCompare(b.creature.name);
-          }
-          return b.creature.dexterity - a.creature.dexterity;
-        }
-        return b.initiative - a.initiative;
-      });
+      this.sortInCombat();
     });
   }
 
@@ -121,15 +113,7 @@ export class InitiativeComponent implements OnInit {
       }
     });
 
-    this.combatCreatures.sort((a, b) => {
-      if(a.initiative == b.initiative){
-        if(a.creature.dexterity == b.creature.dexterity){
-          return a.creature.name.localeCompare(b.creature.name);
-        }
-        return b.creature.dexterity - a.creature.dexterity;
-      }
-      return b.initiative - a.initiative;
-    });
+    this.sortInCombat();
   }
 
   setupCreature(creature){
@@ -157,6 +141,18 @@ export class InitiativeComponent implements OnInit {
       this.rounds++;
     }
     this.currentCreature.class = "current-creature";
+  }
+
+  sortInCombat(){
+    this.combatCreatures.sort((a, b) => {
+      if(a.initiative == b.initiative){
+        if(a.creature.dexterity == b.creature.dexterity){
+          return a.creature.name.localeCompare(b.creature.name);
+        }
+        return b.creature.dexterity - a.creature.dexterity;
+      }
+      return b.initiative - a.initiative;
+    });
   }
 }
 

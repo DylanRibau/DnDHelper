@@ -39,6 +39,14 @@ input[type=number] {
   border: none;
 }
 
+.initiative-input-name{
+  background-color: inherit;
+  border: none;
+  width: 100%;
+  color: rgba(255, 179, 102, 0.87);
+  font-size: 1.5em;
+}
+
 .line{
   background-color: rgba(255, 255, 255, 0.87);
   height: 1px;
@@ -76,11 +84,10 @@ h5{
   display: flex;
 }
 
-.add-button{
+.add-button, .sort-button{
   margin: 5px;
   flex: auto;
 }
-
 .combat-tools{
   display: flex;
   justify-content: space-between;
@@ -167,6 +174,6 @@ h5{
   font-weight: normal;
 }
 
-.creature-action-action, .creature-legendary-action-action{
+.creature-action-action, .creature-legendary-action-action, .creature-special-abilities-ability{
   padding: 0.5em 0em;
 }
