@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { AddCreaturesComponent } from './add-creatures/add-creatures.component';
 import { MatDialogModule, MatDialogConfig } from "@angular/material/dialog";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreatureInfoComponent } from './creature-info/creature-info.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     InitiativeComponent,
     IndexComponent,
     AddCreaturesComponent,
-    CombatDialogComponent
+    CombatDialogComponent,
+    CreatureInfoComponent
   ],
   imports: [
     BrowserModule,

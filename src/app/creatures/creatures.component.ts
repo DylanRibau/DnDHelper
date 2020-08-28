@@ -12,8 +12,7 @@ declare var prettyPrintJson: any;
   styleUrls: ['./creatures.component.css']
 })
 export class CreaturesComponent implements OnInit {
-  currentCreature = "";
-  currentCreatureName = "";
+  currentCreature = null;
   allCreatures = [];
   displayedCreatures = [];
   keyword = "";
@@ -30,8 +29,7 @@ export class CreaturesComponent implements OnInit {
   };
 
   displayCreature(creature){
-    this.currentCreature = prettyPrintJson.toHtml(creature.creature);
-    this.currentCreatureName = creature.creature.name;
+    this.currentCreature = creature;
     this.leftClass = "left";
     this.cardClass = "col-sm-4";
   };
@@ -87,8 +85,7 @@ export class CreaturesComponent implements OnInit {
   };
 
   collapseCreature(){
-    this.currentCreature = "";
-    this.currentCreatureName = "";
+    this.currentCreature = null;
     this.leftClass = "left-alone";
     this.cardClass = "col-sm-2";
   };

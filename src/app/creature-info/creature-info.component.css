@@ -1,0 +1,69 @@
+.italics{
+  font-style: italic;
+}
+
+.creature-info{
+  background-image: url("../../assets/images/Statblock background.jpg");
+  min-width: 500px;
+  max-width: 700px;
+  min-height: 500px;
+  color: rgba(0, 0, 0, 0.87);
+  margin-left: 10em;
+  padding: 10px;
+  box-shadow: 10px 20px 20px 5px rgba(0, 0, 0, 0.5);
+}
+
+.creature-name{
+  color: rgb(102, 0, 0);
+  margin-bottom: 0px;
+}
+
+.creature-creature-type{
+  font-style: italic;
+}
+
+.line-break{
+  background-image: url("../../assets/images/line break.png");
+  height: .25em;
+  width: 100%;
+}
+
+.creature-red-label{
+  color: rgba(179, 0, 0, 0.87);
+  font-weight: bold;
+  padding-right: 0.5em;
+}
+
+.creature-red-value, .creature-section-title{
+  color: rgba(179, 0, 0, 0.87);
+}
+
+.creature-black-label{
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: bold;
+  font-style: italic;
+  padding-right: 0.5em;
+}
+
+.creature-black-value{
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.creature-ability-table{
+  width: 100%;
+  text-align: center;
+}
+
+.creature-special-abilities{
+  padding: 1em 0em;
+}
+
+.creature-section-title{
+  font-size: 1.3em;
+  margin-bottom: 0px;
+  font-weight: normal;
+}
+
+.creature-action-action, .creature-legendary-action-action, .creature-special-abilities-ability{
+  padding: 0.5em 0em;
+}

@@ -78,7 +78,7 @@ h3{
 
 .creature-info-header{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .collapse-button{
@@ -88,4 +88,10 @@ h3{
 
 .creature-info-name{
   flex: auto;
+}
+
+.creatures-cards{
+  max-height: 95%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }

@@ -5,6 +5,8 @@
         <input class="searchbar" (keyup)="search($event)" type="text" placeholder="search" [(ngModel)]="keyword">
         <a class="btn btn-success tools-add" routerLink="/addCreatures">Add</a>
       </div>
+    </div>
+    <div class="row creatures-cards">
       <div [className]="cardClass" *ngFor="let creature of displayedCreatures">
         <div class="card">
           <div class="card-body">
@@ -24,15 +26,13 @@
     </div>
   </div>
 
-  <div class="right" *ngIf="currentCreature != ''">
-    <div class="line-seperator"></div>
+  <div class="right" *ngIf="currentCreature != null">
     <div class="creature-info-header">
-      <h1 class="creature-info-name">{{currentCreatureName}}</h1>
       <a (click)="collapseCreature()" class="btn btn-danger collapse-button">
         <img src="assets/images/compress.png">
       </a>
     </div>
-    <pre [innerHtml]="currentCreature" class="json-display"></pre>
+    <creature-info [creature]="currentCreature"></creature-info>
   </div>
 </div>
 
