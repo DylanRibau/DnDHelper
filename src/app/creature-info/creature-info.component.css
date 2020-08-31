@@ -4,11 +4,8 @@
 
 .creature-info{
   background-image: url("../../assets/images/Statblock background.jpg");
-  min-width: 500px;
-  max-width: 700px;
   min-height: 500px;
   color: rgba(0, 0, 0, 0.87);
-  margin-left: 10em;
   padding: 10px;
   box-shadow: 10px 20px 20px 5px rgba(0, 0, 0, 0.5);
 }

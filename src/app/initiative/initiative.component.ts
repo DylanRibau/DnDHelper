@@ -22,16 +22,22 @@ export class InitiativeComponent implements OnInit {
   rounds = 0;
   turn = 0;
   currentCreature = null;
+  creatureExpanded = null;
 
   constructor(private creaturesService: CreaturesService,
               private dialog: MatDialog,
               private utilService: UtilService) { }
 
   ngOnInit(): void {
-
+    this.creaturesService.getAllCreatures().subscribe(data => {
+      for(const[key, value] of Object.entries(data)){
+        this.creatures.push(value);
+      };
+    });
+    console.log(this.creatures);
   }
 
-  openDialog(){
+  /*openDialog(){
     this.creatures = [];
     this.creaturesService.getAllCreatures().subscribe(data => {
       for(const[key, value] of Object.entries(data)){
@@ -58,7 +64,7 @@ export class InitiativeComponent implements OnInit {
         existing.amount = existing.amount + newCreature.amount;
       };
     });
-  }
+  }*/
 
   openDialogInCombat(){
     this.creatures = [];
@@ -153,6 +159,10 @@ export class InitiativeComponent implements OnInit {
       }
       return b.initiative - a.initiative;
     });
+  }
+
+  displayCreatureInfo(creature){
+    this.creatureExpanded = creature;
   }
 }
 

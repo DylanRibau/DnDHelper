@@ -1,9 +1,13 @@
 <div class="wrapper">
+  <div class="current-creature-info" *ngIf="rounds > 0">
+    <creature-info [creature]="creatureExpanded" *ngIf="creatureExpanded != null"></creature-info>
+    <div class="current-creature-info-placeholder" *ngIf="creatureExpanded == null">
+      <h1>Click a creatures info button to display it here!</h1>
+    </div>
+  </div>
+
   <div class="combat-setup" *ngIf="combatSetup">
     <div class="combat-setup-inner">
-      <div class="creatures-tools">
-        <button class="btn btn-success add-button" (click)="openDialog()" mat-button>Add</button>
-      </div>
       <table class="table table-dark table-hover">
         <tbody>
           <tr *ngFor="let creature of combatSetupCreatures">
@@ -17,6 +21,12 @@
           </tr>
         </tfoot>
       </table>
+    </div>
+  </div>
+
+  <div class="combat-setup-creatures-view" *ngIf="combatSetup">
+    <div class="combat-setup-inner">
+
     </div>
   </div>
 
@@ -41,13 +51,16 @@
       <table class="table table-dark table-hover">
         <tbody>
           <tr [className]="creature.class" *ngFor="let creature of combatCreatures">
-            <td><input class="initiative-input" type="number" [(ngModel)]="creature.initiative" /></td>
+            <td>
+              <input class="initiative-input" type="number" [(ngModel)]="creature.initiative" />
+              <div></div>
+              <a (click)="displayCreatureInfo(creature)" class="btn btn-primary"><img src="assets/images/storage.png"></a>
+            </td>
             <td>
               <input class="initiative-input-name" type="text" [(ngModel)]="creature.creature.name" />
               <div></div>
               <span class="info-label">AC</span><span class="info-value">{{creature.creature.armor_class}}</span>
               <div></div>
-              <span class="info-header">Ability Scores</span>
               <span class="info-label">Str</span><span class="info-value">{{utilService.calculateModifierString(creature.creature.strength)}}</span>
               <span class="info-label">Dex</span><span class="info-value">{{utilService.calculateModifierString(creature.creature.dexterity)}}</span>
               <span class="info-label">Con</span><span class="info-value">{{utilService.calculateModifierString(creature.creature.constitution)}}</span>
@@ -68,7 +81,7 @@
     </div>
   </div>
 
-  <div class="additional-info">
-    <creature-info [creature]="currentCreature" *ngIf="currentCreature != null"></creature-info>
+  <div class="additional-info" *ngIf="currentCreature != null">
+    <creature-info [creature]="currentCreature"></creature-info>
   </div>
 </div>

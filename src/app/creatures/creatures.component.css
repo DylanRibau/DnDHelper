@@ -15,6 +15,7 @@
 
 .wrapper{
   display: flex;
+  justify-content: space-around;
 }
 
 .left{
@@ -27,7 +28,9 @@
 }
 
 .right{
-  flex: 1;
+  flex: 0 0 auto;
+  margin-right: 5px;
+  max-width: 40%;
 }
 
 .line-seperator{
@@ -79,6 +82,7 @@ h3{
 .creature-info-header{
   display: flex;
   justify-content: flex-end;
+  padding-bottom: 10px;
 }
 
 .collapse-button{
