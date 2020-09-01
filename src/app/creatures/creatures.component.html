@@ -1,41 +1,61 @@
-<div class="wrapper">
-  <div [className]="leftClass">
-    <div class="row">
-      <div class="col-sm-12">
-        <input class="searchbar" (keyup)="search($event)" type="text" placeholder="search" [(ngModel)]="keyword">
-        <a class="btn btn-success tools-add" routerLink="/addCreatures">Add</a>
-      </div>
-    </div>
-    <div class="row creatures-cards">
-      <div [className]="cardClass" *ngFor="let creature of displayedCreatures">
-        <div class="card">
-          <div class="card-body">
-            <h3 class="card-title">{{creature.creature.name}}</h3>
-          </div>
-          <div class="card-footer">
-            <a (click)="displayCreature(creature)" class="btn btn-primary"><img src="assets/images/storage.png"></a>
-            <a (click)="editCreature(creature)" class="btn btn-light">
-              <img src="assets/images/edit.png">
-            </a>
-            <a (click)="deleteCreature(creature)" class="btn btn-danger trash">
-              <img src="assets/images/trash.png">
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="right" *ngIf="currentCreature != null">
-    <div class="creature-info-header">
-      <a (click)="collapseCreature()" class="btn btn-danger collapse-button">
-        <img src="assets/images/compress.png">
-      </a>
-    </div>
-    <creature-info [creature]="currentCreature"></creature-info>
-  </div>
+<div class="tools">
+  <input class="searchbar" (keyup)="search($event)" type="text" placeholder="Search..." [(ngModel)]="keyword">
+  <a class="tools-add" routerLink="/addCreatures"><img src="assets/images/add.png"></a>
 </div>
 
-<footer>
-  <div>Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-</footer>
+<div class="creature-info" *ngIf="currentCreature != null">
+  <div class="creature-info-header">
+    <a (click)="collapseCreature()" class="button button-collapse">
+      <img src="assets/images/compress.png">
+    </a>
+  </div>
+  <creature-info [creature]="currentCreature"></creature-info>
+</div>
+
+<div class="wrapper">
+  <table class="table table-dark table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>CR</th>
+        <th>Type</th>
+        <th>Size</th>
+        <th>Str</th>
+        <th>Dex</th>
+        <th>Con</th>
+        <th>Int</th>
+        <th>Wis</th>
+        <th>Cha</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let creature of displayedCreatures">
+        <td>{{creature.creature.name}}</td>
+        <td>{{creature.creature.challenge_rating}}</td>
+        <td>
+          <span>{{creature.creature.type}}</span>
+          <span *ngIf="creature.creature.subtype != null"> ({{creature.creature.subtype}})</span>
+        </td>
+        <td>{{creature.creature.size}}</td>
+        <td>{{creature.creature.strength}}</td>
+        <td>{{creature.creature.dexterity}}</td>
+        <td>{{creature.creature.constitution}}</td>
+        <td>{{creature.creature.intelligence}}</td>
+        <td>{{creature.creature.wisdom}}</td>
+        <td>{{creature.creature.charisma}}</td>
+        <td class="creature-actions">
+          <a (click)="displayCreature(creature)" class="button button-view">
+            <img src="assets/images/storage.png">
+          </a>
+          <a (click)="editCreature(creature)" class="button button-edit">
+            <img src="assets/images/edit.png">
+          </a>
+          <a (click)="deleteCreature(creature)" class="button button-delete">
+            <img src="assets/images/trash.png">
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

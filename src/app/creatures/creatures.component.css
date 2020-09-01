@@ -1,101 +1,125 @@
-.card{
-  background-image: url("../../assets/images/Page Background.jpg");
-  max-width: 200px;
-  margin: auto;
+/* General */
+.button{
+  margin: 0.1em 0;
+  padding: 0.4em;
+  border-radius: 0.2em;
+  transition: 500ms ease-in-out;
 }
 
-.card{
-  margin-bottom: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-}
-
-.card-body{
-  min-height: 150px;
-}
-
-.wrapper{
+/* Top of page toolbar */
+.tools{
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  margin: 1em;
+  padding: 0.1em;
 }
 
-.left{
-  flex: 0 0 40%;
-  margin: 0px 5px;
-}
-
-.left-alone{
-  flex: 0 0 95%;
-}
-
-.right{
+.tools-add{
   flex: 0 0 auto;
-  margin-right: 5px;
-  max-width: 40%;
+  padding: 0.5em;
+  background-color: rgba(0, 230, 77, 0.9);
+  text-decoration: none;
+  color: rgba(240, 240, 240, 0.9);
+  border-radius: 30%;
+  transition: 500ms ease-in-out;
 }
 
-.line-seperator{
-  float: left;
-  width: 1px;
-  height: 100%;
-  background-color: #f7ce65;
-  margin-right: 5px;
-}
-
-.json-display{
-  color: rgba(255, 255, 255, 0.87);
-  font-family: 'Roboto', sans-serif;
-}
-
-pre{
-  white-space: pre-wrap;
+.tools-add:hover{
+  transform: scale(1.1);
+  background-color: rgba(0, 255, 85, 0.9);
 }
 
 .searchbar{
-  margin: 0 10px 10px 10px;
-  height: 2.3em;
+  flex: 0 0 auto;
+  margin-right: 1em;
+  padding: 0 0.5em;
+  height: 2.4em;
+  width: 7em;
+  border: none;
+  border-radius: 1em;
+  transition: 500ms ease-in-out;
+  background-color: rgba(217, 217, 217, 0.8);
 }
 
-.creature-tools{
-  margin: auto;
-  width: 50%;
+.searchbar:focus{
+  width: 15em;
+  background-color: rgba(225, 225, 225, 1);
+  outline: none;
+  transform: scale(1.05);
 }
 
-h1{
-  text-align: center;
-}
-
-h3{
-  color: rgb(77, 38, 0);
-  font-weight: bold;
-  font-family: 'Gentium Basic', serif;
-}
-
-.trash{
-  background-color: #ff6666;
-  margin-left: 3px;
-}
-
-.btn-light{
-  margin-left: 3px;
+/* Creature information section */
+.creature-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .creature-info-header{
   display: flex;
   justify-content: flex-end;
-  padding-bottom: 10px;
 }
 
-.collapse-button{
-  max-height: 45px;
-  margin-right: 5px;
+.button-collapse{
+  background-color: rgba(204, 0, 204, 0.6);
 }
 
-.creature-info-name{
-  flex: auto;
+.button-collapse:hover{
+  background-color: rgba(204, 0, 204, 1);
 }
 
-.creatures-cards{
-  max-height: 95%;
-  overflow-y: auto;
-  overflow-x: hidden;
+creature-info{
+  margin: 0.5em 0 2em;
+  max-width: 800px;
+}
+
+
+/* Creature table */
+.wrapper{
+  display: flex;
+  justify-content: space-around;
+}
+
+table{
+  flex: 0 1 auto;
+  max-width: 90%;
+}
+
+table th{
+  text-transform: uppercase;
+}
+
+.creature-actions{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.button:hover{
+  border-radius: 0.6em;
+  cursor: pointer;
+}
+
+.button-view{
+  background-color: rgba(240, 240, 240, 0.6);
+}
+
+.button-view:hover{
+  background-color: rgb(255, 255, 255);
+}
+
+.button-edit{
+  background-color: rgba(255, 255, 128, 0.6);
+}
+
+.button-edit:hover{
+  background-color: rgb(255, 255, 77);
+}
+
+.button-delete{
+  background-color: rgba(255, 77, 77, 0.6);
+}
+
+.button-delete:hover{
+  background-color: rgba(255, 0, 0, 0.9);
 }

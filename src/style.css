@@ -1,5 +1,10 @@
 @import '@angular/material/prebuilt-themes/pink-bluegrey.css';
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 html {
     height: 100%;
 }
@@ -14,32 +19,6 @@ h1, nav{
     font-family: 'Gentium Basic', serif;
 }
 
-.pageCentered{
-    width: 90%;
-    margin: auto;
-}
-
 .navbar-brand{
     float: left;
-}
-
-.json-string     {
-  color: rgba(255, 173, 51, 0.87);
-}
-
-.json-key  {
-  color: rgba(71, 209, 209, 0.87);
-  font-weight: bold;
-}
-
-.json-number  {
-  color: rgba(255, 153, 153, 0.87);
-}
-
-.json-boolean {
-  color: teal;
-}
-
-.json-null    {
-  color: dimgray;
 }
