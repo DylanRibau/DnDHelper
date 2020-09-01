@@ -15,7 +15,14 @@ export interface DialogData{
 })
 export class InitiativeComponent implements OnInit {
   creatures = [];
+  filteredCreatures = [];
+  playerCharacters = [];
+  filteredPlayerCharacters = [];
+  keyword = "";
+  prevKeyword = "";
+  displayPlayers = false;
   combatSetupCreatures = [];
+  combatSetupPlayers = [];
   combatSetup = true;
 
   combatCreatures = [];
@@ -31,40 +38,89 @@ export class InitiativeComponent implements OnInit {
   ngOnInit(): void {
     this.creaturesService.getAllCreatures().subscribe(data => {
       for(const[key, value] of Object.entries(data)){
-        this.creatures.push(value);
+        if(value.creature.challenge_rating == "Player Character"){
+          this.playerCharacters.push(value);
+          this.filteredPlayerCharacters.push(value);
+        } else {
+          this.creatures.push(value);
+          this.filteredCreatures.push(value);
+        }
       };
     });
-    console.log(this.creatures);
   }
 
-  /*openDialog(){
-    this.creatures = [];
-    this.creaturesService.getAllCreatures().subscribe(data => {
-      for(const[key, value] of Object.entries(data)){
-        this.creatures.push(value);
-      };
-    });
-    let passingData = { creatures: this.creatures, combat: false};
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = passingData;
-    dialogConfig.width = '500px';
-    let dialogRef = this.dialog.open(CombatDialogComponent, dialogConfig);
+  togglePlayersView(){
+    this.displayPlayers = !this.displayPlayers;
+    this.keyword = "";
+    this.prevKeyword = "";
 
-    dialogRef.afterClosed().subscribe(value => {
-      if(value != null){
-        var newCreature = Object.assign({}, value);
-        if(!value.amount){
-          newCreature.amount = 1;
+    if(this.displayPlayers){
+      this.filteredCreatures = [];
+      this.creatures.forEach(element => {
+        this.filteredCreatures.push(element);
+      });
+    } else {
+      this.filteredPlayerCharacters = [];
+      this.playerCharacters.forEach(element => {
+        this.filteredPlayerCharacters.push(element);
+      });
+    }
+
+
+  }
+
+  addCreatureCombat(creature){
+    var existing = this.combatSetupCreatures.find(element => element._id == creature._id);
+    if(!existing){
+      creature.amount = 1;
+      this.combatSetupCreatures.push(creature);
+      return;
+    }
+    ++existing.amount;
+  }
+
+  addPlayerCombat(creature){
+    var existing = this.combatSetupPlayers.find(element => element._id == creature._id);
+    if(!existing){
+      this.combatSetupPlayers.push(creature);
+    }
+  }
+
+  search(event){
+    if(this.keyword == ""){
+      if(this.keyword != this.prevKeyword){
+        if(this.displayPlayers){
+          this.filteredPlayerCharacters = [];
+          this.playerCharacters.forEach(element => {
+            this.filteredPlayerCharacters.push(element);
+          });
+        } else {
+          this.filteredCreatures = [];
+          this.creatures.forEach(element => {
+            this.filteredCreatures.push(element);
+          });
         }
-        var existing = this.combatSetupCreatures.find(element => element._id == newCreature._id);
-        if(!existing){
-          this.combatSetupCreatures.push(newCreature);
-          return;
-        }
-        existing.amount = existing.amount + newCreature.amount;
-      };
-    });
-  }*/
+        this.prevKeyword = this.keyword;
+      }
+      return
+    };
+
+    if(this.displayPlayers){
+      this.filteredPlayerCharacters = [];
+      this.playerCharacters.forEach(element => {
+        if(element.creature.name.toLowerCase().indexOf(this.keyword.toLowerCase()) != -1)
+          this.filteredPlayerCharacters.push(element);
+      });
+    } else {
+      this.filteredCreatures = [];
+      this.creatures.forEach(element => {
+        if(element.creature.name.toLowerCase().indexOf(this.keyword.toLowerCase()) != -1)
+          this.filteredCreatures.push(element);
+      });
+    }
+
+    this.prevKeyword = this.keyword;
+  }
 
   openDialogInCombat(){
     this.creatures = [];
@@ -119,6 +175,14 @@ export class InitiativeComponent implements OnInit {
       }
     });
 
+    this.combatSetupPlayers.forEach(element => {
+      newCreature = Object.assign({}, element);
+      newCreatureInfo = Object.assign({}, element.creature);
+      this.setupCreature(newCreature);
+      newCreature.creature = newCreatureInfo;
+      this.combatCreatures.push(newCreature);
+    });
+
     this.sortInCombat();
   }
 
@@ -163,6 +227,18 @@ export class InitiativeComponent implements OnInit {
 
   displayCreatureInfo(creature){
     this.creatureExpanded = creature;
+  }
+
+  calculateTotalXp(){
+    var totalXp = 0;
+    this.combatSetupCreatures.forEach(element => {
+      totalXp += this.utilService.Crtoxp(element.creature.challenge_rating) * element.amount;
+    });
+    return totalXp;
+  }
+
+  calculateTotalXpPerPlayer(){
+    return Math.floor(this.calculateTotalXp() / this.combatSetupPlayers.length);
   }
 }
 

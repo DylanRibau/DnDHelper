@@ -8,16 +8,43 @@
 
   <div class="combat-setup" *ngIf="combatSetup">
     <div class="combat-setup-inner">
+      <div class="container">
+        <h3>Group</h3>
+        <div class="row">
+          <div class="players-added col-sm-3" *ngFor="let player of combatSetupPlayers">
+            {{player.creature.name}}
+          </div>
+        </div>
+      </div>
+
+      <div class="white-divider"></div>
+
+      <h3>Encounter</h3>
       <table class="table table-dark table-hover">
         <tbody>
           <tr *ngFor="let creature of combatSetupCreatures">
-            <td><h5>{{creature.creature.name}}</h5></td>
+            <td>
+              <div>
+                <h5>{{creature.creature.name}}</h5>
+              </div>
+              <div>
+                <span class="info-label">CR</span>
+                <span class="info-value">{{creature.creature.challenge_rating}}</span>
+                <span class="info-label">XP</span>
+                <span class="info-value">{{utilService.Crtoxp(creature.creature.challenge_rating)}}</span>
+              </div>
+            </td>
             <td>x{{creature.amount}}</td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="2"><button class="btn btn-primary" (click)="startCombat()">Start Combat</button></td>
+            <td><button class="btn btn-primary" (click)="startCombat()">Start Combat</button></td>
+            <td>
+              <span class="info-label">Total Xp:</span>
+              <span class="info-value">{{calculateTotalXp()}}</span>
+              <span class="info-value" *ngIf="combatSetupPlayers.length > 0">(Per Player:{{calculateTotalXpPerPlayer()}})</span>
+            </td>
           </tr>
         </tfoot>
       </table>
@@ -26,7 +53,45 @@
 
   <div class="combat-setup-creatures-view" *ngIf="combatSetup">
     <div class="combat-setup-inner">
-
+      <div class="creatures-view-tools">
+        <input class="searchbar" (keyup)="search($event)" type="text" placeholder="Search for creatures" [(ngModel)]="keyword">
+        <button class="btn btn-light toggle-players-button" (click)="togglePlayersView()">Toggle Players</button>
+      </div>
+      <table class="table table-dark table-hover setup-creatures-view">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>CR</th>
+            <th>Type</th>
+            <th>Size</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="!displayPlayers">
+          <tr *ngFor="let creature of filteredCreatures">
+            <td><button (click)="addCreatureCombat(creature)" class="btn btn-success">+</button></td>
+            <td class="creatures-view-data">{{creature.creature.name}}</td>
+            <td class="creatures-view-data">{{creature.creature.challenge_rating}}</td>
+            <td class="creatures-view-data">
+              <span>{{creature.creature.type}}</span>
+              <span *ngIf="creature.creature.subtype != null"> ({{creature.creature.subtype}})</span>
+            </td>
+            <td class="creatures-view-data">{{creature.creature.size}}</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="displayPlayers">
+          <tr *ngFor="let creature of filteredPlayerCharacters">
+            <td><button (click)="addPlayerCombat(creature)" class="btn btn-success">+</button></td>
+            <td class="creatures-view-data">{{creature.creature.name}}</td>
+            <td class="creatures-view-data">---</td>
+            <td class="creatures-view-data">
+              <span>{{creature.creature.type}}</span>
+              <span *ngIf="creature.creature.subtype != null"> ({{creature.creature.subtype}})</span>
+            </td>
+            <td class="creatures-view-data">{{creature.creature.size}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 

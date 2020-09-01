@@ -11,14 +11,23 @@ input[type=number] {
 
 .wrapper{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 10px 20px;
 }
 
-.combat-setup, .combat, .current-creature-info, .additional-info{
-  flex: 0 0 auto;
+.combat, .current-creature-info, .additional-info{
+  flex: 1 0 auto;
   min-width: 20%;
   max-width: 30%;
+}
+
+.combat-setup{
+  flex: 1 0 500px;
+  margin-right: 20px;
+}
+
+.combat-setup-creatures-view{
+  flex: 1 0 auto;
 }
 
 .combat-setup-inner, .combat-inner{
@@ -85,7 +94,7 @@ h5{
   margin: 5px;
   flex: auto;
 }
-.combat-tools{
+.combat-tools, .creatures-view-tools{
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -113,4 +122,22 @@ h5{
   height: 500px;
   color: rgba(0, 0, 0, 0.87);
   box-shadow: 10px 20px 20px 5px rgba(0, 0, 0, 0.5);
+}
+
+.creatures-view-data{
+  padding-right: 5em;
+}
+
+.toggle-players-button{
+  flex: 0 0 auto;
+}
+
+.setup-creatures-view{
+  min-width: 800px;
+}
+
+.white-divider{
+  background-color: rgba(255, 255, 255, 0.87);
+  height: 1px;
+  margin: 5px;
 }

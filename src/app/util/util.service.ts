@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as CrToXp from "@src/assets/util/CR to Xp.json";
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +46,9 @@ export class UtilService{
       string = string + ", " + element.name;
     });
     return string.substring(1);
+  }
+
+  Crtoxp(cr){
+    return CrToXp.conversion[cr];
   }
 }

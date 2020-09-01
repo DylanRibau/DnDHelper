@@ -13,7 +13,8 @@
     "target": "es2015",
     "module": "es2020",
     "paths": {
-      "@app/*": ["src/app/*"]
+      "@app/*": ["src/app/*"],
+      "@src/*": ["src/*"]
     },
     "lib": [
       "es2018",
