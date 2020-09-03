@@ -232,7 +232,7 @@ export class InitiativeComponent implements OnInit {
   calculateTotalXp(){
     var totalXp = 0;
     this.combatSetupCreatures.forEach(element => {
-      totalXp += this.utilService.Crtoxp(element.creature.challenge_rating) * element.amount;
+      totalXp += this.utilService.crtoxp(element.creature.challenge_rating) * element.amount;
     });
     return totalXp;
   }

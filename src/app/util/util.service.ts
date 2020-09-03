@@ -48,7 +48,7 @@ export class UtilService{
     return string.substring(1);
   }
 
-  Crtoxp(cr){
+  crtoxp(cr){
     return CrToXp.conversion[cr];
   }
 }

@@ -89,6 +89,35 @@ table th{
   text-transform: uppercase;
 }
 
+.sort-arrows-container{
+  display: flex;
+  flex-direction: column;
+  float: left;
+}
+
+.header-title{
+  float: left;
+  margin-top: 0.9em;
+  margin-right: 0.5em;
+}
+
+.up-arrow, .down-arrow{
+  transition: 500ms ease-in-out;
+}
+
+.up-arrow:hover, .down-arrow:hover{
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.up-arrow:visited{
+  transform: scale(1.5);
+}
+
+.creature-name{
+  color: rgba(255, 255, 102, 0.87);
+}
+
 .creature-actions{
   display: flex;
   justify-content: space-around;
@@ -97,6 +126,7 @@ table th{
 
 .button:hover{
   border-radius: 0.6em;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
   cursor: pointer;
 }
 

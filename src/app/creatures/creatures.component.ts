@@ -94,4 +94,46 @@ export class CreaturesComponent implements OnInit {
     this.addCreatureService.creature = creature;
     this.router.navigateByUrl('/addCreatures');
   };
+
+  sort(property, direction){
+    this.displayedCreatures.sort(function(a, b){
+      if(direction == "asc"){
+        if(a.creature[property] > b.creature[property]){
+          return -1;
+        }
+        if(a.creature[property] < b.creature[property]){
+          return 1;
+        }
+        return 0;
+      } else {
+        if(a.creature[property] > b.creature[property]){
+          return 1;
+        }
+        if(a.creature[property] < b.creature[property]){
+          return -1;
+        }
+        return 0;
+      }
+    });
+
+    this.allCreatures.sort(function(a, b){
+      if(direction == "asc"){
+        if(a.creature[property] > b.creature[property]){
+          return -1;
+        }
+        if(a.creature[property] < b.creature[property]){
+          return 1;
+        }
+        return 0;
+      } else {
+        if(a.creature[property] > b.creature[property]){
+          return 1;
+        }
+        if(a.creature[property] < b.creature[property]){
+          return -1;
+        }
+        return 0;
+      }
+    });
+  };
 }
