@@ -1,0 +1,68 @@
+.dnd-banner{
+  height: 80vh;
+  margin-top: -10px;
+  background-image: url("../../assets/images/dnd-background.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  opacity: 0.65;
+}
+
+footer{
+  width: 80vw;
+  margin: auto;
+}
+
+/* Page section styling */
+.page-link-title{
+  color: rgba(255, 255, 102, 0.87);
+}
+
+.page-link-section{
+  height: 50vh;
+  width: 80vw;
+  margin: auto;
+  margin-bottom: 20px;
+  background-color: rgb(51, 51, 51);
+  box-shadow: 0 0 1px 1px #262626 inset;
+  border-radius: 20px;
+}
+
+.page-link-section:hover{
+  cursor: pointer;
+}
+
+.page-link-title{
+  font-size: 7em;
+  text-align: center;
+}
+
+.page-link-description{
+  float: left;
+  padding-left: 10%;
+  padding-top: 20px;
+  width: 50vw;
+  text-align: center;
+}
+
+.initiative-image{
+  float: right;
+  margin-right: 20px;
+  background: url("../../assets/images/dragon_of_icespire.jpg");
+}
+
+.creatures-image{
+  float: left;
+  margin-left: 20px;
+  background: url("../../assets/images/boneyard_scourge.jpg");
+}
+
+.page-link-image{
+  height: 50%;
+  width: 20vw;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 5px 5px rgb(51, 51, 51) inset;
+}
