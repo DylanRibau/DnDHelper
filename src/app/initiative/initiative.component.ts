@@ -240,6 +240,43 @@ export class InitiativeComponent implements OnInit {
   calculateTotalXpPerPlayer(){
     return Math.floor(this.calculateTotalXp() / this.combatSetupPlayers.length);
   }
+
+  calculateAdjustedXp(){
+    if(this.combatSetupCreatures.length > 0){
+      var amountOfCreatures = 0;
+      this.combatSetupCreatures.forEach(element => {
+        amountOfCreatures += element.amount;
+      });
+      return this.calculateTotalXp() * this.utilService.encounterMultiplier(amountOfCreatures);
+    }
+    return "";
+  }
+
+  calculateEncounterDifficulty(){
+    var adjustedXp = this.calculateAdjustedXp();
+    var easy = 0;
+    var medium = 0;
+    var hard = 0;
+    var deadly = 0;
+
+    this.combatSetupPlayers.forEach(element => {
+      var thresholds = this.utilService.levelToXpThreshold(element.creature.level);
+      easy += thresholds.Easy;
+      medium += thresholds.Medium;
+      hard += thresholds.Hard;
+      deadly += thresholds.Deadly;
+    });
+
+    if(adjustedXp >= deadly){
+      return "Deadly";
+    } else if(adjustedXp >= hard){
+      return "Hard";
+    } else if(adjustedXp >= medium){
+      return "Medium";
+    } else {
+      return "Easy"
+    }
+  }
 }
 
 @Component({

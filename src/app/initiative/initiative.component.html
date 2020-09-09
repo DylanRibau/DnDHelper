@@ -41,9 +41,16 @@
           <tr>
             <td><button class="btn btn-primary" (click)="startCombat()">Start Combat</button></td>
             <td>
-              <span class="info-label">Total Xp:</span>
-              <span class="info-value">{{calculateTotalXp()}}</span>
-              <span class="info-value" *ngIf="combatSetupPlayers.length > 0">(Per Player:{{calculateTotalXpPerPlayer()}})</span>
+              <div>
+                <span class="info-label">Total Xp:</span>
+                <span class="info-value">{{calculateTotalXp()}}</span>
+                <span class="info-value" *ngIf="combatSetupPlayers.length > 0 && combatSetupCreatures.length > 0">(Per Player:{{calculateTotalXpPerPlayer()}})</span>
+              </div>
+              <div>
+                <span class="info-label">Adjusted Xp:</span>
+                <span class="info-value">{{calculateAdjustedXp()}}</span>
+                <span class="info-value" *ngIf="combatSetupPlayers.length > 0 && combatSetupCreatures.length > 0">({{calculateEncounterDifficulty()}})</span>
+              </div>
             </td>
           </tr>
         </tfoot>

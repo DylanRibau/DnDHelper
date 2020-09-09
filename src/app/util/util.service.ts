@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as CrToXp from "@src/assets/util/CR to Xp.json";
+import * as EncounterXPHelper from "@src/assets/util/Encounter XP Helper.json";
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +49,16 @@ export class UtilService{
   }
 
   crtoxp(cr){
-    return CrToXp.conversion[cr];
+    return EncounterXPHelper.conversion[cr];
+  }
+
+  encounterMultiplier(numOfCreatures){
+    if(numOfCreatures > 15)
+      numOfCreatures = 15;
+    return EncounterXPHelper.encounter_multiplier[numOfCreatures];
+  }
+
+  levelToXpThreshold(level){
+    return EncounterXPHelper.threshold[level];
   }
 }
