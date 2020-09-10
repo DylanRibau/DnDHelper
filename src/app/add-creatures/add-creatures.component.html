@@ -1,12 +1,46 @@
-<div class="json-display">
-  <div class="statusMessage">
-    <h1 [className]="statusMessageClass">{{statusMessage}}</h1>
-  </div>
+<div>
+  <label for="name">Name</label>
+  <input name="name" placeholder="Goblin" [(ngModel)]="creature.name"/>
 </div>
-<div class="json-display">
-  <textarea name="name" rows="25" cols="150" [(ngModel)]="creatureJson" (blur)="blurEvent()" placeholder="Enter JSON for creature"></textarea>
+
+<div>
+  <label for="size">Size</label>
+  <input name="size" placeholder="Small" [(ngModel)]="creature.size"/>
 </div>
-<div class="json-display">
-  <button class="btn btn-success" (click)="addCreature()">Add</button>
-  <button class="btn btn-danger" (click)="resetJSON()">Reset</button>
+
+<div>
+  <label for="type">Type</label>
+  <input name="type" placeholder="humanoid" [(ngModel)]="creature.type"/>
+  <input name="subtype" placeholder="goblinoid" [(ngModel)]="creature.subtype"/>
+</div>
+
+<div>
+  <label for="alignment">Alignment</label>
+  <input name="alignment" placeholder="neutral evil" [(ngModel)]="creature.alignment"/>
+</div>
+
+<div>
+  <label for="ac">AC</label>
+  <input name="ac" placeholder="10" [(ngModel)]="creature.armor_class" type="number"/>
+</div>
+
+<div>
+  <label for="hp">HP</label>
+  <input name="hp" placeholder="7" [(ngModel)]="creature.hit_points" type="number"/>
+</div>
+
+<div>
+  <label for="hit_dice">Hit Dice</label>
+  <input name="hit_dice" placeholder="2d6" [(ngModel)]="creature.hit_dice"/>
+</div>
+
+<div>
+  <label for="speed">Speed</label>
+  <input name="speed" placeholder="" [(ngModel)]="speed.name"/>
+  <input name="speed_value" placeholder="30 ft." [(ngModel)]="speed.value"/>
+  <button (click)="addSpeed()" class="button button-primary">Add</button>
+</div>
+
+<div>
+  <button (click)="addCreature()" class="button button-primary">Add</button>
 </div>

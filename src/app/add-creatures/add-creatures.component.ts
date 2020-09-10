@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AddCreaturesService } from './add-creatures.service';
 import { IResponse } from '@app/data/api-response.js';
+import { Creature } from '@app/model/Creature.ts';
+import { SimpleKVnumber } from '@app/model/SimpleKVnumber.ts';
+import { SimpleKVstring } from '@app/model/SimpleKVstring.ts';
 
 @Component({
   selector: 'app-add-creatures',
@@ -8,80 +11,40 @@ import { IResponse } from '@app/data/api-response.js';
   styleUrls: ['./add-creatures.component.css']
 })
 export class AddCreaturesComponent implements OnInit {
-  //{"name":"123"}
-  creatureEdit;
-  creatureJson = "";
-  statusMessage = "Enter JSON";
-  statusMessageClass = "status-message-default";
+  creature = new Creature();
+  speed = new SimpleKVstring();
 
   constructor(private creaturesService: AddCreaturesService) { }
 
   ngOnInit(): void {
-    var creature = this.creaturesService.creature;
-    if(creature != null){
-      this.creatureEdit = creature;
-      this.creatureJson = JSON.stringify(creature.creature);
-      this.statusMessage = "Editing " + creature.creature.name;
-      this.creaturesService.creature = null;
-    };
+    // Default values for testing purposes
+    this.creature.name = "Goblin";
+    this.creature.size = "Small";
+    this.creature.type = "humanoid";
+    this.creature.subtype = "goblinoid";
+    this.creature.alignment = "neutral evil";
+    this.creature.armor_class = 15;
+    this.creature.hit_points = 7;
+    this.creature.hit_dice = "2d6";
+
+
+    // var editCreature = this.creaturesService.creature;
+    // if(editCreature != null){
+    //
+    // };
+    this.creature.speed = new Array<SimpleKVstring>();
   };
 
   addCreature(){
-    var parsedInput = tryParseJson(this.creatureJson);
+    console.log(this.creature);
+  }
 
-    if(parsedInput == false){
-      return;
+  addSpeed(){
+    if(this.speed.value != undefined){
+      if(this.speed.name == undefined){
+        this.speed.name = "";
+      }
+      this.creature.speed.push(this.speed);
     }
-
-    if(this.creatureEdit != null){
-      this.creatureEdit.creature = tryParseJson(this.creatureJson);
-      this.creaturesService.putCreature(this.creatureEdit).subscribe(function(data: IResponse){
-        this.statusMessage = data.message;
-      });
-      return;
-    }
-
-    this.creaturesService.postCreature(parsedInput).subscribe(function(data: IResponse) {
-      this.statusMessage = data.message
-    });
-  };
-
-  blurEvent(){
-    if(this.creatureJson.trim() == ""){
-      this.statusMessage = "Enter JSON";
-      this.statusMessageClass = "status-message-default";
-      this.creatureEdit = null;
-      return;
-    }
-
-    var parsedInput = tryParseJson(this.creatureJson);
-
-    if(parsedInput == false){
-      this.statusMessage = "Invalid JSON";
-      this.statusMessageClass = "status-message-invalid";
-      return;
-    }
-    this.statusMessage = "Valid JSON";
-    this.statusMessageClass = "status-message-success";
-  };
-
-  resetJSON(){
-    if(confirm("Are you sure?")){
-      this.creatureJson = "";
-      this.statusMessage = "Enter JSON";
-      this.statusMessageClass = "status-message-default";
-    }
-  };
-}
-
-function tryParseJson(str){
-  try{
-    var jsonObj = JSON.parse(str);
-
-    if(jsonObj && typeof jsonObj === "object"){
-      return jsonObj;
-    }
-  } catch(e){ }
-
-  return false;
+  }
 }

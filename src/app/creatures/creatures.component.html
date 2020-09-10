@@ -1,6 +1,6 @@
 <div class="tools">
   <input class="searchbar" (keyup)="search($event)" type="text" placeholder="Search..." [(ngModel)]="keyword">
-  <a class="tools-add" routerLink="/addCreatures"><img src="assets/images/add.png"></a>
+  <a class="tools-add" routerLink="/add-creature"><img src="assets/images/add.png"></a>
 </div>
 
 <div class="creature-info" *ngIf="currentCreature != null">
