@@ -35,4 +35,5 @@ export class Creature {
   actions: Array<Action>;
   legendary_actions: Array<Action>;
   source: Array<SimpleKVnumber>;
+  level: Array<SimpleKVnumber>;
 }

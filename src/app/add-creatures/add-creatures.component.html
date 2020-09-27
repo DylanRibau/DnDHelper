@@ -1,44 +1,210 @@
 <div>
-  <label for="name">Name</label>
-  <input name="name" placeholder="Goblin" [(ngModel)]="creature.name"/>
+  <label>Name</label>
+  <input placeholder="Goblin" [(ngModel)]="creature.name"/>
 </div>
 
 <div>
-  <label for="size">Size</label>
-  <input name="size" placeholder="Small" [(ngModel)]="creature.size"/>
+  <label>Size</label>
+  <input placeholder="Small" [(ngModel)]="creature.size"/>
 </div>
 
 <div>
-  <label for="type">Type</label>
-  <input name="type" placeholder="humanoid" [(ngModel)]="creature.type"/>
-  <input name="subtype" placeholder="goblinoid" [(ngModel)]="creature.subtype"/>
+  <label>Type</label>
+  <input placeholder="humanoid" [(ngModel)]="creature.type"/>
+  <input placeholder="goblinoid" [(ngModel)]="creature.subtype"/>
 </div>
 
 <div>
-  <label for="alignment">Alignment</label>
-  <input name="alignment" placeholder="neutral evil" [(ngModel)]="creature.alignment"/>
+  <label>Alignment</label>
+  <input placeholder="neutral evil" [(ngModel)]="creature.alignment"/>
 </div>
 
 <div>
-  <label for="ac">AC</label>
-  <input name="ac" placeholder="10" [(ngModel)]="creature.armor_class" type="number"/>
+  <label>AC</label>
+  <input placeholder="10" [(ngModel)]="creature.armor_class" type="number"/>
 </div>
 
 <div>
-  <label for="hp">HP</label>
-  <input name="hp" placeholder="7" [(ngModel)]="creature.hit_points" type="number"/>
+  <label>HP</label>
+  <input placeholder="7" [(ngModel)]="creature.hit_points" type="number"/>
 </div>
 
 <div>
-  <label for="hit_dice">Hit Dice</label>
-  <input name="hit_dice" placeholder="2d6" [(ngModel)]="creature.hit_dice"/>
+  <label>Hit Dice</label>
+  <input placeholder="2d6" [(ngModel)]="creature.hit_dice"/>
 </div>
 
 <div>
-  <label for="speed">Speed</label>
-  <input name="speed" placeholder="" [(ngModel)]="speed.name"/>
-  <input name="speed_value" placeholder="30 ft." [(ngModel)]="speed.value"/>
-  <button (click)="addSpeed()" class="button button-primary">Add</button>
+  <label>Speed</label>
+  <div *ngFor="let speedEntry of creature.speed">
+    <input type="text" placeholder="" [(ngModel)]="speedEntry.name"/>
+    <input type="text" placeholder="30 ft." [(ngModel)]="speedEntry.value"/>
+  </div>
+  <button (click)="addEntry('speed')" class="button button-primary">Add</button>
+</div>
+
+<div>
+  <input placeholder="STR" [(ngModel)]="creature.strength" type="number"/>
+  <input placeholder="DEX" [(ngModel)]="creature.dexterity" type="number"/>
+  <input placeholder="CON" [(ngModel)]="creature.constitution" type="number" />
+  <input placeholder="INT" [(ngModel)]="creature.intelligence" type="number" />
+  <input placeholder="WIS" [(ngModel)]="creature.wisdom" type="number" />
+  <input placeholder="CHA" [(ngModel)]="creature.charisma" type="number" />
+</div>
+
+<div>
+  <label>Saving Throws</label>
+  <div *ngFor="let savingThrow of creature.saving_throws">
+    <!-- <input type="text" name="saving_throw" placeholder="" [(ngModel)]="savingThrow.name"/> -->
+    <select matNativeControl [(ngModel)]="savingThrow.name" name="saving_throw">
+      <option value="" selected></option>
+      <option *ngFor="let option of savingThrowOptions" [value]="option">
+        {{option}}
+      </option>
+    </select>
+    <input type="number" placeholder="0" [(ngModel)]="savingThrow.value"/>
+  </div>
+  <button (click)="addEntry('saving_throws')" class="button button-primary">Add</button>
+</div>
+
+<div>
+  <label>Skills</label>
+  <div *ngFor="let skill of creature.skills">
+    <input type="text" placeholder="" [(ngModel)]="skill.name"/>
+    <input type="number" placeholder="6" [(ngModel)]="skill.value"/>
+  </div>
+  <button (click)="addEntry('skills')" class="button button-primary">Add</button>
+</div>
+
+<div>
+  <label>Damage Vulnerabilities</label>
+  <div *ngFor="let item of creature.damage_vulnerabilities; let i = index; trackBy:trackByIndex">
+    <input type="text" placeholder="Damage Vulnerability" [(ngModel)]="creature.damage_vulnerabilities[i]"/>
+  </div>
+  <button (click)="addEntry('damage_vulnerabilities')" class="button button-primary">Add</button>
+</div>
+
+<div>
+  <label>Damage Resistances</label>
+  <div *ngFor="let item of creature.damage_resistances; let i = index; trackBy:trackByIndex">
+    <input type="text" placeholder="" [(ngModel)]="creature.damage_resistances[i]"/>
+  </div>
+  <button (click)="addEntry('damage_resistances')" class="button button-primary">Add</button>
+</div>
+
+<div>
+  <label>Damage Immunities</label>
+  <div *ngFor="let item of creature.damage_immunities; let i = index; trackBy:trackByIndex">
+    <input type="text" placeholder="" [(ngModel)]="creature.damage_immunities[i]"/>
+  </div>
+  <button (click)="addEntry('damage_immunities')" class="button button-primary">Add</button>
+</div>
+
+<div>
+  <label>Condition Immunities</label>
+  <div *ngFor="let item of creature.condition_immunities; let i = index; trackBy:trackByIndex">
+    <input type="text" placeholder="" [(ngModel)]="creature.condition_immunities[i]"/>
+  </div>
+  <button (click)="addEntry('condition_immunities')" class="button button-primary">Add</button>
+</div>
+
+<div>
+  <label>Senses</label>
+  <div *ngFor="let sense of creature.senses">
+    <input type="text" placeholder="darkvision" [(ngModel)]="sense.name"/>
+    <input type="text" placeholder="60 ft." [(ngModel)]="sense.value"/>
+  </div>
+  <button (click)="addEntry('senses')" class="button button-primary">Add</button>
+</div>
+
+<div>
+  <label>Languages</label>
+  <input placeholder="Common" [(ngModel)]="creature.languages"/>
+</div>
+
+<div>
+  <label>CR</label>
+  <input placeholder="1/4" [(ngModel)]="creature.challenge_rating"/>
+</div>
+
+<div>
+  <label>Special Abilities</label>
+  <div *ngFor="let specab of creature.special_abilities">
+    <input type="text" placeholder="" [(ngModel)]="specab.name"/>
+    <input type="text" placeholder="" [(ngModel)]="specab.value"/>
+  </div>
+  <button (click)="addEntry('special_abilities')" class="button button-primary">Add</button>
+</div>
+
+<div>
+  <label>Innate Spellcasting</label>
+  <div *ngIf="creature.innate_spellcasting != undefined">
+    <input type="text" [(ngModel)]="creature.innate_spellcasting.value" />
+    <div *ngFor="let innspell of creature.innate_spellcasting.time_constraint">
+      <input type="text" [(ngModel)]="innspell.per_day" />
+      <label>Spells</label>
+      <div *ngFor="let spell of innspell.spells; let i = index; trackBy:trackByIndex">
+        <input type="text" [(ngModel)]="innspell.spells[i]" />
+      </div>
+      <button (click)="addSpell(innspell)" class="button button-primary">Add Spell</button>
+    </div>
+  </div>
+  <button (click)="addEntry('innate_spellcasting')" class="button button-primary">Add</button>
+</div>
+
+<div>
+  <label>Spellcasting</label>
+  <div *ngIf="creature.spellcasting != undefined">
+    <input type="text" [(ngModel)]="creature.spellcasting.value" />
+    <div *ngFor="let spellslvl of creature.spellcasting.levels">
+      <input type="number" [(ngModel)]="spellslvl.level" />
+      <input type="text" [(ngModel)]="spellslvl.slots" />
+      <label>Spells</label>
+      <div *ngFor="let spell of spellslvl.spells; let i = index; trackBy:trackByIndex">
+        <input type="text" [(ngModel)]="spellslvl.spells[i]" />
+      </div>
+      <button (click)="addSpell(spellslvl)" class="button button-primary">Add Spell</button>
+    </div>
+  </div>
+  <button (click)="addEntry('spellcasting')" class="button button-primary">Add</button>
+</div>
+
+<div>
+  <label>Actions</label>
+  <div *ngFor="let action of creature.actions">
+    <input type="text" placeholder="Scimitar" [(ngModel)]="action.name"/>
+    <input type="text" placeholder="Melee Weapon Attack" [(ngModel)]="action.type"/>
+    <input type="text" placeholder="+ 4 to hit, reach 5 ft......" [(ngModel)]="action.value"/>
+  </div>
+  <button (click)="addEntry('actions')" class="button button-primary">Add</button>
+</div>
+
+<div>
+  <label>Legendary Actions</label>
+  <div *ngFor="let action of creature.legendary_actions">
+    <input type="text" placeholder="Detect" [(ngModel)]="action.name"/>
+    <input type="text" placeholder="" [(ngModel)]="action.type"/>
+    <input type="text" placeholder="This creature takes an additional attack" [(ngModel)]="action.value"/>
+  </div>
+  <button (click)="addEntry('legendary_actions')" class="button button-primary">Add</button>
+</div>
+
+<div>
+  <label>Source</label>
+  <div *ngFor="let action of creature.source">
+    <input type="text" placeholder="Monster Manual" [(ngModel)]="action.name"/>
+    <input type="number" placeholder="123" [(ngModel)]="action.value"/>
+  </div>
+  <button (click)="addEntry('source')" class="button button-primary">Add</button>
+</div>
+
+<div>
+  <label>Level</label>
+  <div *ngFor="let level of creature.level">
+    <input type="text" placeholder="Fighter" [(ngModel)]="level.name"/>
+    <input type="number" placeholder="3" [(ngModel)]="level.value"/>
+  </div>
+  <button (click)="addEntry('level')" class="button button-primary">Add</button>
 </div>
 
 <div>
