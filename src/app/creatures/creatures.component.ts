@@ -26,6 +26,7 @@ export class CreaturesComponent implements OnInit {
 
   ngOnInit(): void {
     this.grabAllCreatures();
+    this.addCreatureService.creature = null;
   };
 
   displayCreature(creature){
@@ -92,7 +93,7 @@ export class CreaturesComponent implements OnInit {
 
   editCreature(creature){
     this.addCreatureService.creature = creature;
-    this.router.navigateByUrl('/addCreatures');
+    this.router.navigateByUrl('/add-creature');
   };
 
   sort(property, direction){
