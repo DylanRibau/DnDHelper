@@ -21,12 +21,16 @@ export class AddCreaturesComponent implements OnInit {
     "Str", "Dex", "Con", "Int", "Wis", "Cha"
   ];
   status = "";
+  title = "";
 
   constructor(private creaturesService: AddCreaturesService) { }
 
   ngOnInit(): void {
     if(this.creaturesService.creature){
       this.creature = this.creaturesService.creature.creature;
+      this.title = "Editing " + this.creature.name;
+    } else {
+      this.title = "New Creature"
     }
 
     // Default values for testing purposes
