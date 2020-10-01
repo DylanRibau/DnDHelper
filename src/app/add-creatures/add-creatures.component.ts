@@ -153,11 +153,11 @@ export class AddCreaturesComponent implements OnInit {
     this.creature.legendary_actions.amount = 78;
     this.creature.legendary_actions.actions.push(action3, action4);
 
-    // this.creature.source = new Array<SimpleKVnumber>();
-    // var source = new SimpleKVnumber();
-    // source.name = "Monster Manual";
-    // source.value = 123;
-    // this.creature.source.push(source);
+    this.creature.source = new Array<SimpleKVnumber>();
+    var source = new SimpleKVnumber();
+    source.name = "Monster Manual";
+    source.value = 123;
+    this.creature.source.push(source);
 
     this.creature.level = new Array<SimpleKVnumber>();
     var level1 = new SimpleKVnumber();
@@ -257,5 +257,16 @@ export class AddCreaturesComponent implements OnInit {
 
   trackByIndex(index: number, obj: any): any {
     return index;
+  }
+
+  removeEntry(origin, entry){
+    var index = origin.indexOf(entry);
+    if(index > -1)
+      origin.splice(index, 1);
+    return;
+  }
+
+  clearField(field){
+    delete this.creature[field];
   }
 }

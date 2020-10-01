@@ -51,7 +51,7 @@
   <div class="section">
     <div class="flexbox_vertical">
       <span class="section_title">Speed</span>
-      <button (click)="addEntry('speed')" class="button">Add</button>
+      <button (click)="addEntry('speed')" class="button button_purple">Add</button>
     </div>
     <div *ngFor="let speedEntry of creature.speed">
       <div class="flexbox">
@@ -63,6 +63,7 @@
           <input class="input_stnd" name="value" type="text" placeholder=" " [(ngModel)]="speedEntry.value"/>
           <label for="value">Value</label>
         </div>
+        <button (click)="removeEntry(creature.speed, speedEntry)" class="button_delete"><img src="assets/images/trash.png"></button>
       </div>
     </div>
   </div>
@@ -98,7 +99,7 @@
   <div class="section">
     <div class="flexbox_vertical">
       <span class="section_title">Saving Throws</span>
-      <button class="button" (click)="addEntry('saving_throws')">Add</button>
+      <button class="button button_purple" (click)="addEntry('saving_throws')">Add</button>
     </div>
     <div *ngFor="let savingThrow of creature.saving_throws">
       <div class="flexbox">
@@ -115,6 +116,7 @@
           <input class="input_stnd" name="value" type="number" placeholder=" " [(ngModel)]="savingThrow.value"/>
           <label for="value">Saving Throw Modifier</label>
         </div>
+        <button (click)="removeEntry(creature.saving_throws, savingThrow)" class="button_delete"><img src="assets/images/trash.png"></button>
       </div>
     </div>
   </div>
@@ -122,7 +124,7 @@
   <div class="section">
     <div class="flexbox_vertical">
       <span class="section_title">Skills</span>
-      <button (click)="addEntry('skills')" class="button">Add</button>
+      <button (click)="addEntry('skills')" class="button button_purple">Add</button>
     </div>
     <div *ngFor="let skill of creature.skills">
       <div class="flexbox">
@@ -134,6 +136,7 @@
           <input class="input_stnd" type="number" name="modifier" placeholder=" " [(ngModel)]="skill.value"/>
           <label for="modifier">Modifier</label>
         </div>
+        <button (click)="removeEntry(creature.skills, skill)" class="button_delete"><img src="assets/images/trash.png"></button>
       </div>
     </div>
   </div>
@@ -141,12 +144,15 @@
   <div class="section">
     <div class="flexbox_vertical">
       <span class="section_title">Damage Vulnerabilities</span>
-      <button (click)="addEntry('damage_vulnerabilities')" class="button">Add</button>
+      <button (click)="addEntry('damage_vulnerabilities')" class="button button_purple">Add</button>
     </div>
     <div class="flexbox_sm">
-      <div class="input_pair_sm" *ngFor="let item of creature.damage_vulnerabilities; let i = index; trackBy:trackByIndex">
-        <input class="input_stnd" type="text" name="damage_vulnerability" placeholder=" " [(ngModel)]="creature.damage_vulnerabilities[i]"/>
-        <label for="damage_vulnerability">Damage Vulnerability</label>
+      <div class="flexbox_pair" *ngFor="let item of creature.damage_vulnerabilities; let i = index; trackBy:trackByIndex">
+        <div class="input_pair_sm">
+          <input class="input_stnd" type="text" name="damage_vulnerability" placeholder=" " [(ngModel)]="creature.damage_vulnerabilities[i]"/>
+          <label for="damage_vulnerability">Damage Vulnerability</label>
+        </div>
+        <button (click)="removeEntry(creature.damage_vulnerabilities, item)" class="button_delete"><img src="assets/images/trash.png"></button>
       </div>
     </div>
   </div>
@@ -154,12 +160,15 @@
   <div class="section">
     <div class="flexbox_vertical">
       <span class="section_title">Damage Resistances</span>
-      <button (click)="addEntry('damage_resistances')" class="button">Add</button>
+      <button (click)="addEntry('damage_resistances')" class="button button_purple">Add</button>
     </div>
     <div class="flexbox_sm">
-      <div class="input_pair_sm" *ngFor="let item of creature.damage_resistances; let i = index; trackBy:trackByIndex">
-        <input class="input_stnd" type="text" name="damage_resistance" placeholder=" " [(ngModel)]="creature.damage_resistances[i]"/>
-        <label for="damage_resistance">Damage Resistance</label>
+      <div class="flexbox_pair" *ngFor="let item of creature.damage_resistances; let i = index; trackBy:trackByIndex">
+        <div class="input_pair_sm">
+          <input class="input_stnd" type="text" name="damage_resistance" placeholder=" " [(ngModel)]="creature.damage_resistances[i]"/>
+          <label for="damage_resistance">Damage Resistance</label>
+        </div>
+        <button (click)="removeEntry(creature.damage_resistances, item)" class="button_delete"><img src="assets/images/trash.png"></button>
       </div>
     </div>
   </div>
@@ -167,12 +176,15 @@
   <div class="section">
     <div class="flexbox_vertical">
       <span class="section_title">Damage Immunities</span>
-      <button (click)="addEntry('damage_immunities')" class="button">Add</button>
+      <button (click)="addEntry('damage_immunities')" class="button button_purple">Add</button>
     </div>
     <div class="flexbox_sm">
-      <div class="input_pair_sm" *ngFor="let item of creature.damage_immunities; let i = index; trackBy:trackByIndex">
-        <input class="input_stnd" type="text" name="damange_immunity" placeholder=" " [(ngModel)]="creature.damage_immunities[i]"/>
-        <label for="damange_immunity">Damage Immunity</label>
+      <div class="flexbox_pair" *ngFor="let item of creature.damage_immunities; let i = index; trackBy:trackByIndex">
+        <div class="input_pair_sm">
+          <input class="input_stnd" type="text" name="damange_immunity" placeholder=" " [(ngModel)]="creature.damage_immunities[i]"/>
+          <label for="damange_immunity">Damage Immunity</label>
+        </div>
+        <button (click)="removeEntry(creature.damage_immunities, item)" class="button_delete"><img src="assets/images/trash.png"></button>
       </div>
     </div>
   </div>
@@ -180,12 +192,15 @@
   <div class="section">
     <div class="flexbox_vertical">
       <span class="section_title">Condition Immunities</span>
-      <button (click)="addEntry('condition_immunities')" class="button">Add</button>
+      <button (click)="addEntry('condition_immunities')" class="button button_purple">Add</button>
     </div>
     <div class="flexbox_sm">
-      <div class="input_pair_sm" *ngFor="let item of creature.condition_immunities; let i = index; trackBy:trackByIndex">
-        <input class="input_stnd" type="text" name="condition_immunity" placeholder=" " [(ngModel)]="creature.condition_immunities[i]"/>
-        <label for="condition_immunity">Condition Immunity</label>
+      <div class="flexbox_pair" *ngFor="let item of creature.condition_immunities; let i = index; trackBy:trackByIndex">
+        <div class="input_pair_sm">
+          <input class="input_stnd" type="text" name="condition_immunity" placeholder=" " [(ngModel)]="creature.condition_immunities[i]"/>
+          <label for="condition_immunity">Condition Immunity</label>
+        </div>
+        <button (click)="removeEntry(creature.condition_immunities, item)" class="button_delete"><img src="assets/images/trash.png"></button>
       </div>
     </div>
   </div>
@@ -193,7 +208,7 @@
   <div class="section">
     <div class="flexbox_vertical">
       <span class="section_title">Senses</span>
-      <button (click)="addEntry('senses')" class="button">Add</button>
+      <button (click)="addEntry('senses')" class="button button_purple">Add</button>
     </div>
     <div *ngFor="let sense of creature.senses">
       <div class="flexbox">
@@ -205,6 +220,7 @@
           <input class="input_stnd" type="text" placeholder=" " [(ngModel)]="sense.value"/>
           <label for="value">Sense Value</label>
         </div>
+        <button (click)="removeEntry(creature.senses, sense)" class="button_delete"><img src="assets/images/trash.png"></button>
       </div>
     </div>
   </div>
@@ -224,7 +240,7 @@
   <div class="section">
     <div class="flexbox_vertical">
       <span class="section_title">Special Abilities</span>
-      <button (click)="addEntry('special_abilities')" class="button">Add</button>
+      <button (click)="addEntry('special_abilities')" class="button button_purple">Add</button>
     </div>
     <div *ngFor="let specab of creature.special_abilities">
       <div class="flexbox">
@@ -236,6 +252,7 @@
           <input class="input_stnd" type="text" name="value" placeholder=" " [(ngModel)]="specab.value"/>
           <label for="value">Ability</label>
         </div>
+        <button (click)="removeEntry(creature.special_abilities, specab)" class="button_delete"><img src="assets/images/trash.png"></button>
       </div>
     </div>
   </div>
@@ -243,7 +260,7 @@
   <div class="section">
     <div class="flexbox_vertical">
       <span class="section_title">Innate Spellcasting</span>
-      <button (click)="addEntry('innate_spellcasting')" class="button">Add</button>
+      <button (click)="addEntry('innate_spellcasting')" class="button button_purple">Add</button>
     </div>
     <div *ngIf="creature.innate_spellcasting != undefined">
       <div class="flexbox">
@@ -251,6 +268,7 @@
           <input class="input_stnd" type="text" name="value" placeholder=" " [(ngModel)]="creature.innate_spellcasting.value" />
           <label for="value">Innate Spellcasting</label>
         </div>
+        <button (click)="clearField('innate_spellcasting')" class="button_delete"><img src="assets/images/trash.png"></button>
       </div>
       <div class="sub_section" *ngFor="let innspell of creature.innate_spellcasting.time_constraint">
         <div class="flexbox">
@@ -258,15 +276,19 @@
             <input class="input_stnd" type="text" name="per_day" placeholder=" " [(ngModel)]="innspell.per_day" />
             <label for="per_day">Per Day</label>
           </div>
+          <button (click)="removeEntry(creature.innate_spellcasting.time_constraint, innspell)" class="button_delete"><img src="assets/images/trash.png"></button>
         </div>
         <div class="flexbox_vertical">
           <span class="section_subtitle">Spells</span>
-          <button (click)="addSpell(innspell)" class="button">Add Spell</button>
+          <button (click)="addSpell(innspell)" class="button button_purple">Add Spell</button>
         </div>
         <div class="flexbox_sm">
-          <div class="input_pair_sm" *ngFor="let spell of innspell.spells; let i = index; trackBy:trackByIndex">
-            <input class="input_stnd" type="text" name="spell" placeholder=" " [(ngModel)]="innspell.spells[i]" />
-            <label for="spell">Spell</label>
+          <div class="flexbox_pair" *ngFor="let spell of innspell.spells; let i = index; trackBy:trackByIndex">
+            <div class="input_pair_sm">
+              <input class="input_stnd" type="text" name="spell" placeholder=" " [(ngModel)]="innspell.spells[i]" />
+              <label for="spell">Spell</label>
+            </div>
+            <button (click)="removeEntry(innspell.spells, spell)" class="button_delete"><img src="assets/images/trash.png"></button>
           </div>
         </div>
       </div>
@@ -276,7 +298,7 @@
   <div class="section">
     <div class="flexbox_vertical">
       <span class="section_title">Spellcasting</span>
-      <button (click)="addEntry('spellcasting')" class="button">Add</button>
+      <button (click)="addEntry('spellcasting')" class="button button_purple">Add</button>
     </div>
     <div *ngIf="creature.spellcasting != undefined">
       <div class="flexbox">
@@ -284,6 +306,7 @@
           <input class="input_stnd" type="text" name="value" placeholder=" " [(ngModel)]="creature.spellcasting.value" />
           <label for="value">Spellcasting</label>
         </div>
+        <button (click)="clearField('spellcasting')" class="button_delete"><img src="assets/images/trash.png"></button>
       </div>
       <div class="sub_section" *ngFor="let spellslvl of creature.spellcasting.levels">
         <div class="flexbox">
@@ -295,15 +318,19 @@
             <input class="input_stnd" type="number" name="slots" placeholder=" " [(ngModel)]="spellslvl.slots" />
             <label for="slots">Slots</label>
           </div>
+          <button (click)="removeEntry(creature.spellcasting.levels, spellslvl)" class="button_delete"><img src="assets/images/trash.png"></button>
         </div>
         <div class="flexbox_vertical">
           <span class="section_subtitle">Spells</span>
-          <button (click)="addSpell(spellslvl)" class="button">Add Spell</button>
+          <button (click)="addSpell(spellslvl)" class="button button_purple">Add Spell</button>
         </div>
         <div class="flexbox_sm">
-          <div class="input_pair_sm" *ngFor="let spell of spellslvl.spells; let i = index; trackBy:trackByIndex">
-            <input class="input_stnd" type="text" name="spell" placeholder=" " [(ngModel)]="spellslvl.spells[i]" />
-            <label for="spell">Spell</label>
+          <div class="flexbox_pair" *ngFor="let spell of spellslvl.spells; let i = index; trackBy:trackByIndex">
+            <div class="input_pair_sm">
+              <input class="input_stnd" type="text" name="spell" placeholder=" " [(ngModel)]="spellslvl.spells[i]" />
+              <label for="spell">Spell</label>
+            </div>
+            <button (click)="removeEntry(spellslvl.spells, spell)" class="button_delete"><img src="assets/images/trash.png"></button>
           </div>
         </div>
       </div>
@@ -313,7 +340,7 @@
   <div class="section">
     <div class="flexbox_vertical">
       <span class="section_title">Actions</span>
-      <button (click)="addEntry('actions')" class="button">Add</button>
+      <button (click)="addEntry('actions')" class="button button_purple">Add</button>
     </div>
     <div *ngFor="let action of creature.actions">
       <div class="sub_section">
@@ -326,6 +353,7 @@
             <input class="input_stnd" type="text" name="type" placeholder=" " [(ngModel)]="action.type"/>
             <label for="type">Type</label>
           </div>
+          <button (click)="removeEntry(creature.actions, action)" class="button_delete"><img src="assets/images/trash.png"></button>
         </div>
         <div class="flexbox">
           <div class="input_pair">
@@ -336,11 +364,11 @@
       </div>
     </div>
   </div>
-  
+
   <div class="section">
     <div class="flexbox_vertical">
       <span class="section_title">Legendary Actions</span>
-      <button (click)="addEntry('legendary_actions')" class="button">Add</button>
+      <button (click)="addEntry('legendary_actions')" class="button button_purple">Add</button>
     </div>
     <div *ngIf="creature.legendary_actions != undefined">
       <div class="flexbox">
@@ -348,13 +376,14 @@
           <input class="input_stnd" type="text" name="value" placeholder=" " [(ngModel)]="creature.legendary_actions.value" />
           <label for="value">Legendary Action Description</label>
         </div>
+        <button (click)="clearField('legendary_actions')" class="button_delete"><img src="assets/images/trash.png"></button>
       </div>
       <div class="flexbox_vertical">
         <div class="input_pair">
           <input class="input_stnd" type="number" name="amount" placeholder=" " [(ngModel)]="creature.legendary_actions.amount" />
           <label for="amount">Amount</label>
         </div>
-        <button (click)="addLegendaryAction()" class="button">Add Action</button>
+        <button (click)="addLegendaryAction()" class="button button_purple">Add Action</button>
       </div>
       <div class="sub_section" *ngFor="let action of creature.legendary_actions.actions">
         <div class="flexbox">
@@ -362,6 +391,7 @@
             <input class="input_stnd" type="text" name="name" placeholder=" " [(ngModel)]="action.name"/>
             <label for="name">Action</label>
           </div>
+          <button (click)="removeEntry(creature.legendary_actions.actions, action)" class="button_delete"><img src="assets/images/trash.png"></button>
         </div>
         <div class="flexbox">
           <div class="input_pair">
@@ -376,18 +406,19 @@
   <div class="section">
     <div class="flexbox_vertical">
       <span class="section_title">Source</span>
-      <button (click)="addEntry('source')" class="button">Add</button>
+      <button (click)="addEntry('source')" class="button button_purple">Add</button>
     </div>
-    <div *ngFor="let action of creature.source">
+    <div *ngFor="let source of creature.source">
       <div class="flexbox">
         <div class="input_pair">
-          <input class="input_stnd" type="text" name="name" placeholder=" " [(ngModel)]="action.name"/>
+          <input class="input_stnd" type="text" name="name" placeholder=" " [(ngModel)]="source.name"/>
           <label for="name">Source</label>
         </div>
         <div class="input_pair">
-          <input class="input_stnd" type="number" name="value" placeholder=" " [(ngModel)]="action.value"/>
+          <input class="input_stnd" type="number" name="value" placeholder=" " [(ngModel)]="source.value"/>
           <label for="value">Page</label>
         </div>
+        <button (click)="removeEntry(creature.source, source)" class="button_delete"><img src="assets/images/trash.png"></button>
       </div>
     </div>
   </div>
@@ -395,7 +426,7 @@
   <div class="section">
     <div class="flexbox_vertical">
       <span class="section_title">Level</span>
-      <button (click)="addEntry('level')" class="button">Add</button>
+      <button (click)="addEntry('level')" class="button button_purple">Add</button>
     </div>
     <div *ngFor="let level of creature.level">
       <div class="flexbox">
@@ -407,6 +438,7 @@
           <input class="input_stnd" type="number" name="level" placeholder=" " [(ngModel)]="level.value"/>
           <label for="level">Level</label>
         </div>
+        <button (click)="removeEntry(creature.level, level)" class="button_delete"><img src="assets/images/trash.png"></button>
       </div>
     </div>
   </div>
