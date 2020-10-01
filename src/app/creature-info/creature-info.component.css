@@ -2,6 +2,10 @@
   font-style: italic;
 }
 
+.capital{
+  font-size: 1.3em;
+}
+
 .creature-info{
   background-image: url("../../assets/images/Statblock background.jpg");
   min-height: 500px;
@@ -61,6 +65,18 @@
   font-weight: normal;
 }
 
-.creature-action-action, .creature-legendary-action-action, .creature-special-abilities-ability{
+.creature-action-action,
+.creature-legendary-action-action,
+.creature-special-abilities-ability,
+.creature_spellcasting,
+.creature_innate_spellcasting,
+.creature_source_section,
+.creature_legendary_action_description{
   padding: 0.5em 0em;
+}
+
+.creature_innate_spellcasting_info,
+.creature_spellcasting_info,
+.creature_legendary_action_description{
+  margin-bottom: 1em;
 }

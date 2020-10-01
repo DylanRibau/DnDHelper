@@ -1,6 +1,6 @@
 export class SpellcastingLevel{
-  level: number;
-  slots: string;
+  level: string;
+  slots: number;
   spells: Array<string>;
 
   constructor(){

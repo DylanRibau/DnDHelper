@@ -43,7 +43,7 @@ export class UtilService{
   generateSimpleListItemString(elements){
     var string = "";
     elements.forEach(element => {
-      string = string + ", " + element.name;
+      string = string + ", " + element;
     });
     return string.substring(1);
   }

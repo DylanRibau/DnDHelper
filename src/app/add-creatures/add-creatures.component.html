@@ -252,23 +252,21 @@
           <label for="value">Innate Spellcasting</label>
         </div>
       </div>
-      <div *ngFor="let innspell of creature.innate_spellcasting.time_constraint">
-        <div class="sub_section">
-          <div class="flexbox">
-            <div class="input_pair">
-              <input class="input_stnd" type="text" name="per_day" placeholder=" " [(ngModel)]="innspell.per_day" />
-              <label for="per_day">Per Day</label>
-            </div>
+      <div class="sub_section" *ngFor="let innspell of creature.innate_spellcasting.time_constraint">
+        <div class="flexbox">
+          <div class="input_pair">
+            <input class="input_stnd" type="text" name="per_day" placeholder=" " [(ngModel)]="innspell.per_day" />
+            <label for="per_day">Per Day</label>
           </div>
-          <div class="flexbox_vertical">
-            <span class="section_subtitle">Spells</span>
-            <button (click)="addSpell(innspell)" class="button">Add Spell</button>
-          </div>
-          <div class="flexbox_sm">
-            <div class="input_pair_sm" *ngFor="let spell of innspell.spells; let i = index; trackBy:trackByIndex">
-              <input class="input_stnd" type="text" name="spell" placeholder=" " [(ngModel)]="innspell.spells[i]" />
-              <label for="spell">Spell</label>
-            </div>
+        </div>
+        <div class="flexbox_vertical">
+          <span class="section_subtitle">Spells</span>
+          <button (click)="addSpell(innspell)" class="button">Add Spell</button>
+        </div>
+        <div class="flexbox_sm">
+          <div class="input_pair_sm" *ngFor="let spell of innspell.spells; let i = index; trackBy:trackByIndex">
+            <input class="input_stnd" type="text" name="spell" placeholder=" " [(ngModel)]="innspell.spells[i]" />
+            <label for="spell">Spell</label>
           </div>
         </div>
       </div>
@@ -287,27 +285,25 @@
           <label for="value">Spellcasting</label>
         </div>
       </div>
-      <div *ngFor="let spellslvl of creature.spellcasting.levels">
-        <div class="sub_section">
-          <div class="flexbox">
-            <div class="input_pair">
-              <input class="input_stnd" type="number" name="level" placeholder=" " [(ngModel)]="spellslvl.level" />
-              <label for="level">Level</label>
-            </div>
-            <div class="input_pair">
-              <input class="input_stnd" type="text" name="slots" placeholder=" " [(ngModel)]="spellslvl.slots" />
-              <label for="slots">Slots</label>
-            </div>
+      <div class="sub_section" *ngFor="let spellslvl of creature.spellcasting.levels">
+        <div class="flexbox">
+          <div class="input_pair">
+            <input class="input_stnd" type="text" name="level" placeholder=" " [(ngModel)]="spellslvl.level" />
+            <label for="level">Level</label>
           </div>
-          <div class="flexbox_vertical">
-            <span class="section_subtitle">Spells</span>
-            <button (click)="addSpell(spellslvl)" class="button">Add Spell</button>
+          <div class="input_pair">
+            <input class="input_stnd" type="number" name="slots" placeholder=" " [(ngModel)]="spellslvl.slots" />
+            <label for="slots">Slots</label>
           </div>
-          <div class="flexbox_sm">
-            <div class="input_pair_sm" *ngFor="let spell of spellslvl.spells; let i = index; trackBy:trackByIndex">
-              <input class="input_stnd" type="text" name="spell" placeholder=" " [(ngModel)]="spellslvl.spells[i]" />
-              <label for="spell">Spell</label>
-            </div>
+        </div>
+        <div class="flexbox_vertical">
+          <span class="section_subtitle">Spells</span>
+          <button (click)="addSpell(spellslvl)" class="button">Add Spell</button>
+        </div>
+        <div class="flexbox_sm">
+          <div class="input_pair_sm" *ngFor="let spell of spellslvl.spells; let i = index; trackBy:trackByIndex">
+            <input class="input_stnd" type="text" name="spell" placeholder=" " [(ngModel)]="spellslvl.spells[i]" />
+            <label for="spell">Spell</label>
           </div>
         </div>
       </div>
@@ -340,22 +336,31 @@
       </div>
     </div>
   </div>
-
+  
   <div class="section">
     <div class="flexbox_vertical">
       <span class="section_title">Legendary Actions</span>
       <button (click)="addEntry('legendary_actions')" class="button">Add</button>
     </div>
-    <div *ngFor="let action of creature.legendary_actions">
-      <div class="sub_section">
+    <div *ngIf="creature.legendary_actions != undefined">
+      <div class="flexbox">
+        <div class="input_pair">
+          <input class="input_stnd" type="text" name="value" placeholder=" " [(ngModel)]="creature.legendary_actions.value" />
+          <label for="value">Legendary Action Description</label>
+        </div>
+      </div>
+      <div class="flexbox_vertical">
+        <div class="input_pair">
+          <input class="input_stnd" type="number" name="amount" placeholder=" " [(ngModel)]="creature.legendary_actions.amount" />
+          <label for="amount">Amount</label>
+        </div>
+        <button (click)="addLegendaryAction()" class="button">Add Action</button>
+      </div>
+      <div class="sub_section" *ngFor="let action of creature.legendary_actions.actions">
         <div class="flexbox">
           <div class="input_pair">
             <input class="input_stnd" type="text" name="name" placeholder=" " [(ngModel)]="action.name"/>
             <label for="name">Action</label>
-          </div>
-          <div class="input_pair">
-            <input class="input_stnd" type="text" name="type" placeholder=" " [(ngModel)]="action.type"/>
-            <label for="type">Type</label>
           </div>
         </div>
         <div class="flexbox">

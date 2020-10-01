@@ -3,6 +3,7 @@ import { SimpleKVstring } from './SimpleKVstring';
 import { Action } from './Action';
 import { InnateSpellcasting } from './InnateSpellcasting';
 import { Spellcasting } from './Spellcasting';
+import { LegendaryActions } from './LegendaryActions';
 
 export class Creature {
   name: string;
@@ -33,7 +34,7 @@ export class Creature {
   innate_spellcasting: InnateSpellcasting;
   spellcasting: Spellcasting;
   actions: Array<Action>;
-  legendary_actions: Array<Action>;
+  legendary_actions: LegendaryActions;
   source: Array<SimpleKVnumber>;
   level: Array<SimpleKVnumber>;
 }
