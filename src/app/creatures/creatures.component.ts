@@ -4,8 +4,6 @@ import { AddCreaturesService } from '@app/add-creatures/add-creatures.service';
 import { IResponse } from '@app/data/api-response.js';
 import { Router } from '@angular/router';
 
-declare var prettyPrintJson: any;
-
 @Component({
   selector: 'app-creatures',
   templateUrl: './creatures.component.html',
@@ -136,5 +134,17 @@ export class CreaturesComponent implements OnInit {
         return 0;
       }
     });
+  };
+
+  downloadCreature(creature){
+    console.log(creature.creature);
+
+    let element = document.createElement("a");
+    let fileType = "text/json";
+    element.setAttribute("href", `data:${fileType};charset=utf-8,${encodeURIComponent(JSON.stringify(creature.creature))}`);
+    element.setAttribute("download", `${creature.creature.name}.json`);
+
+    var event = new MouseEvent("click");
+    element.dispatchEvent(event);
   };
 }
