@@ -59,6 +59,10 @@ export class UtilService{
   }
 
   levelToXpThreshold(level){
-    return EncounterXPHelper.threshold[level];
+    var totalLevel = 0;
+    level.forEach(element => {
+      totalLevel += element.value;
+    });
+    return EncounterXPHelper.threshold[totalLevel];
   }
 }
