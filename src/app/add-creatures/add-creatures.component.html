@@ -1,6 +1,14 @@
 <div class="wrapper">
   <h1>{{title}}</h1>
 
+  <div class="">
+    <h4>Import Creature</h4>
+    <input class="import" type="file" id="file" (change)="fileInput($event.target.files)" />
+    <label for="file" class="button file_select" *ngIf="!fileUploaded">Select File</label>
+    <button (click)="importCreature()" class="button button_import" *ngIf="fileUploaded">Import {{fileUploaded.name}}</button>
+    <span class="status">{{status}}</span>
+  </div>
+
   <div class="flexbox">
     <div class="input_pair">
       <input class="input_stnd" name="name" placeholder=" " [(ngModel)]="creature.name"/>
@@ -445,6 +453,5 @@
 
   <div>
     <button (click)="addCreature()" class="button button_add">Add</button>
-    <span class="status">{{status}}</span>
   </div>
 </div>
