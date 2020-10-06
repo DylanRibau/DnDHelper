@@ -38,6 +38,7 @@ export class CreatureDisplay{
   spellcasting_spells: Array<SimpleKVstring>;
   actions: Array<Action>;
   legendary_actions: LegendaryActions;
+  reactions: Array<SimpleKVstring>;
   source: Array<SimpleKVnumber>;
   level: Array<SimpleKVnumber>;
 
@@ -59,5 +60,6 @@ export class CreatureDisplay{
     this.legendary_actions = creature.legendary_actions;
     this.source = creature.source;
     this.level = creature.level;
+    this.reactions = creature.reactions;
   }
 }

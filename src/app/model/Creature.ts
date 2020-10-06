@@ -35,6 +35,7 @@ export class Creature {
   spellcasting: Spellcasting;
   actions: Array<Action>;
   legendary_actions: LegendaryActions;
+  reactions: Array<SimpleKVstring>;
   source: Array<SimpleKVnumber>;
   level: Array<SimpleKVnumber>;
 }

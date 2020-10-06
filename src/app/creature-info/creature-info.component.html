@@ -146,6 +146,17 @@
     </div>
   </div>
 
+  <div class="creature-reactions-section" *ngIf="creatureDisplay.reactions != null">
+    <div class="creature-section-title">
+      <span class="capital">R</span>EACTIONS
+    </div>
+    <div class="line-break"></div>
+    <div class="creature-reaction-entry" *ngFor="let reaction of creatureDisplay.reactions">
+      <span class="creature-black-label">{{reaction.name}}.</span>
+      <span class="creature-black-value">{{reaction.value}}</span>
+    </div>
+  </div>
+
   <div class="creature_source_section" *ngIf="creatureDisplay.source != null && creatureDisplay.source.length > 0">
     <div class="creature-section-title">
       <span class="capital">S</span>OURCE

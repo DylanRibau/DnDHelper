@@ -413,6 +413,26 @@
 
   <div class="section">
     <div class="flexbox_vertical">
+      <span class="section_title">Reactions</span>
+      <button (click)="addEntry('reactions')" class="button button_purple">Add</button>
+    </div>
+    <div *ngFor="let reaction of creature.reactions">
+      <div class="flexbox">
+        <div class="input_pair">
+          <input class="input_stnd" type="text" name="name" placeholder=" " [(ngModel)]="reaction.name"/>
+          <label for="name">Reaction</label>
+        </div>
+        <div class="input_pair">
+          <input class="input_stnd" type="text" name="value" placeholder=" " [(ngModel)]="reaction.value"/>
+          <label for="value">Reaction Description</label>
+        </div>
+        <button (click)="removeEntry(creature.reactions, reaction)" class="button_delete"><img src="assets/images/trash.png"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="flexbox_vertical">
       <span class="section_title">Source</span>
       <button (click)="addEntry('source')" class="button button_purple">Add</button>
     </div>

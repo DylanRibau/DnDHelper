@@ -41,6 +41,7 @@ export class AddCreaturesComponent implements OnInit {
       case 'speed':
       case 'senses':
       case 'special_abilities':
+      case 'reactions':
         if(this.creature[field] == undefined){
           this.creature[field] = new Array<SimpleKVstring>();
         }
