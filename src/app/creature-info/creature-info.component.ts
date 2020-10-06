@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UtilService } from '@app/util/util.service';
 import { CreatureDisplay } from '@app/model/CreatureDisplay';
 import { SimpleKVstring } from '@app/model/SimpleKVstring';
+import { SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'creature-info',
@@ -14,9 +15,7 @@ export class CreatureInfoComponent implements OnInit {
 
   constructor(public utilService: UtilService) { }
 
-  ngOnInit(): void {
-    this.generateDisplayString();
-  };
+  ngOnInit(): void {};
 
   generateDisplayString(){
     this.creatureDisplay = new CreatureDisplay(this.creature.creature);
@@ -85,4 +84,8 @@ export class CreatureInfoComponent implements OnInit {
       });
     };
   };
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.generateDisplayString();
+  }
 }

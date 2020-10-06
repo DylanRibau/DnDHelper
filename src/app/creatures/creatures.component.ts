@@ -137,8 +137,6 @@ export class CreaturesComponent implements OnInit {
   };
 
   downloadCreature(creature){
-    console.log(creature.creature);
-
     let element = document.createElement("a");
     let fileType = "text/json";
     element.setAttribute("href", `data:${fileType};charset=utf-8,${encodeURIComponent(JSON.stringify(creature.creature))}`);
