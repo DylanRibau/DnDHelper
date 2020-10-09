@@ -277,6 +277,14 @@ export class InitiativeComponent implements OnInit {
       return "Easy"
     }
   }
+
+  deleteCreature(creature){
+    let index = this.combatCreatures.map(function(item){
+      return item._id;
+    }).indexOf(creature._id);
+
+    this.combatCreatures.splice(index, 1);
+  }
 }
 
 @Component({

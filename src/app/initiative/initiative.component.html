@@ -147,6 +147,13 @@
                 <input class="initiative-input" type="number" [(ngModel)]="creature.creature.hit_points" />
               </div>
             </td>
+            <td>
+              <div class="button_container">
+                <a (click)="deleteCreature(creature)" class="button_delete">
+                  <img src="assets/images/trash.png">
+                </a>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
