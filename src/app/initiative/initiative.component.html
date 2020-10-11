@@ -11,8 +11,11 @@
       <div class="container">
         <h3>Group</h3>
         <div class="row">
-          <div class="players-added col-sm-3" *ngFor="let player of combatSetupPlayers">
-            {{player.creature.name}}
+          <div class="players_added col-sm-3" *ngFor="let player of combatSetupPlayers">
+            <span class="player_name">{{player.creature.name}}</span>
+            <a (click)="removePlayer(player)" class="button_delete">
+              <img src="assets/images/trash.png">
+            </a>
           </div>
         </div>
       </div>
@@ -35,12 +38,19 @@
               </div>
             </td>
             <td>x{{creature.amount}}</td>
+            <td>
+              <div class="button_container">
+                <a (click)="removeCreatureSetup(creature)" class="button_delete">
+                  <img src="assets/images/trash.png">
+                </a>
+              </div>
+            </td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
             <td><button class="btn btn-primary" (click)="startCombat()">Start Combat</button></td>
-            <td>
+            <td colspan="2">
               <div>
                 <span class="info-label">Total Xp:</span>
                 <span class="info-value">{{calculateTotalXp()}}</span>

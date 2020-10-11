@@ -279,11 +279,31 @@ export class InitiativeComponent implements OnInit {
   }
 
   deleteCreature(creature){
-    let index = this.combatCreatures.map(function(item){
-      return item._id;
-    }).indexOf(creature._id);
+    let index = this.getIndex(this.combatCreatures, creature);
 
     this.combatCreatures.splice(index, 1);
+  }
+
+  removePlayer(player){
+    let index = this.getIndex(this.combatSetupPlayers, player);
+
+    this.combatSetupPlayers.splice(index, 1);
+  }
+
+  removeCreatureSetup(creature){
+    let index = this.getIndex(this.combatSetupCreatures, creature);
+
+    if(this.combatSetupCreatures[index].amount !== undefined && this.combatSetupCreatures[index].amount > 1){
+      this.combatSetupCreatures[index].amount--;
+    } else {
+      this.combatSetupCreatures.splice(index, 1);
+    }
+  }
+
+  getIndex(array, creature){
+    return array.map(function(item){
+      return item._id
+    }).indexOf(creature._id);
   }
 }
 

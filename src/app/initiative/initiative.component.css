@@ -151,11 +151,22 @@ h5{
 }
 
 .button_delete:hover{
+  cursor: pointer;
+  border-radius: 0.6em;
   background-color: rgba(255, 0, 0, 0.9);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
 }
 
 .button_container{
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+}
+
+.player_name{
+  padding-right: 0.5em;
+}
+
+.players_added{
+  margin-bottom: 1em;
 }
