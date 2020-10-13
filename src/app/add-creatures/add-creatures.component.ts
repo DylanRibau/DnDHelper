@@ -98,10 +98,6 @@ export class AddCreaturesComponent implements OnInit {
     obj.spells.push("");
   }
 
-  addLegendaryAction(){
-    this.creature.legendary_actions.actions.push(new SimpleKVstring());
-  }
-
   addCreature(){
     if(this.creature.speed != undefined){
       this.creature.speed.forEach(element => {
