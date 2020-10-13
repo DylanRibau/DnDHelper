@@ -70,6 +70,8 @@ export class InitiativeComponent implements OnInit {
   }
 
   addCreatureCombat(creature){
+    creature.creature.challenge_rating_xp = this.utilService.crtoxp(creature.creature.challenge_rating);
+
     var existing = this.combatSetupCreatures.find(element => element._id == creature._id);
     if(!existing){
       creature.amount = 1;

@@ -15,6 +15,12 @@ input[type=number] {
   padding: 10px 20px;
 }
 
+.player_container{
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em;
+}
+
 .combat, .current-creature-info, .additional-info{
   flex: 1 0 auto;
   min-width: 20%;

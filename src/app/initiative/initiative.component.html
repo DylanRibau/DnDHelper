@@ -10,13 +10,11 @@
     <div class="combat-setup-inner">
       <div class="container">
         <h3>Group</h3>
-        <div class="row">
-          <div class="players_added col-sm-3" *ngFor="let player of combatSetupPlayers">
-            <span class="player_name">{{player.creature.name}}</span>
-            <a (click)="removePlayer(player)" class="button_delete">
-              <img src="assets/images/trash.png">
-            </a>
-          </div>
+        <div class="player_container" *ngFor="let player of combatSetupPlayers">
+          <div>{{player.creature.name}}</div>
+          <a (click)="removePlayer(player)" class="button_delete">
+            <img src="assets/images/trash.png">
+          </a>
         </div>
       </div>
 
@@ -34,7 +32,7 @@
                 <span class="info-label">CR</span>
                 <span class="info-value">{{creature.creature.challenge_rating}}</span>
                 <span class="info-label">XP</span>
-                <span class="info-value">{{utilService.crtoxp(creature.creature.challenge_rating)}}</span>
+                <span class="info-value">{{creature.creature.challenge_rating_xp}}</span>
               </div>
             </td>
             <td>x{{creature.amount}}</td>
