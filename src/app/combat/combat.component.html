@@ -1,0 +1,64 @@
+<div class="wrapper">
+  <div class="current-creature-info" *ngIf="rounds > 0">
+    <creature-info [creature]="creatureExpanded" *ngIf="creatureExpanded != null"></creature-info>
+    <div class="current-creature-info-placeholder" *ngIf="creatureExpanded == null">
+      <h1>Click a creatures info button to display it here!</h1>
+    </div>
+  </div>
+
+  <div class="combat">
+    <div class="combat-inner">
+      <div class="creatures-tools">
+        <button class="btn btn-info sort-button" (click)="sortInCombat()">Sort</button>
+        <button class="btn btn-success add-button" (click)="openDialogInCombat()" mat-button>Add</button>
+      </div>
+      <div class="combat-tools">
+        <div>
+          <span class="combat-tools-label">Rounds</span>
+          <span class="combat-tools-value">{{rounds}}</span>
+        </div>
+        <div>
+          <span class="combat-tools-label">Turn</span>
+          <span class="combat-tools-value">{{turn}}</span>
+        </div>
+        <button class="btn btn-primary" (click)="initializeCombat()" *ngIf="rounds == 0">Start</button>
+        <button class="btn btn-primary" (click)="nextTurn()" *ngIf="rounds > 0">Next</button>
+      </div>
+      <table class="table table-dark table-hover">
+        <tbody>
+          <tr [className]="creature.class" *ngFor="let creature of creatures">
+            <td>
+              <input class="clear_input" type="number" [(ngModel)]="creature.additionalInfo.initiative" />
+              <div></div>
+              <a (click)="displayCreatureInfo(creature)" class="btn btn-primary"><img src="assets/images/storage.png"></a>
+            </td>
+            <td>
+              <input class="clear_input_name" type="text" [(ngModel)]="creature.creature.name" />
+              <div></div>
+              <span class="info-label">AC</span><span class="info-value">{{creature.creature.armor_class}}</span>
+              <div></div>
+            </td>
+            <td class="hit-points-container">
+              <div class="hit-points">
+                <input class="clear_input" type="number" [(ngModel)]="creature.additionalInfo.current_hit_points" />
+                <div class="line"></div>
+                <input class="clear_input" type="number" [(ngModel)]="creature.creature.hit_points" />
+              </div>
+            </td>
+            <td>
+              <div class="button_container">
+                <a (click)="deleteCreature(creature)" class="button_delete">
+                  <img src="assets/images/trash.png">
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="additional-info" *ngIf="currentCreature != null">
+    <creature-info [creature]="currentCreature"></creature-info>
+  </div>
+</div>

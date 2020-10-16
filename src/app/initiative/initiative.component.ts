@@ -1,12 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { CreaturesService } from '@app/creatures/creatures.service';
 import { UtilService } from '@app/util/util.service';
-import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-
-export interface DialogData{
-  creatures: Array<any>;
-  combat: boolean;
-}
+import { CreatureAdditionalInfo } from '@app/model/CreatureAdditionalInfo';
+import { EncounterXPInfo } from '@app/model/EncounterXPInfo';
 
 @Component({
   selector: 'app-initiative',
@@ -23,16 +19,11 @@ export class InitiativeComponent implements OnInit {
   displayPlayers = false;
   combatSetupCreatures = [];
   combatSetupPlayers = [];
-  combatSetup = true;
-
   combatCreatures = [];
-  rounds = 0;
-  turn = 0;
-  currentCreature = null;
-  creatureExpanded = null;
+  combatSetup:boolean = true;
+  encounterXPInfo:EncounterXPInfo;
 
   constructor(private creaturesService: CreaturesService,
-              private dialog: MatDialog,
               private utilService: UtilService) { }
 
   ngOnInit(): void {
@@ -47,6 +38,8 @@ export class InitiativeComponent implements OnInit {
         }
       };
     });
+
+    this.calculateXpInfo();
   }
 
   togglePlayersView(){
@@ -65,8 +58,6 @@ export class InitiativeComponent implements OnInit {
         this.filteredPlayerCharacters.push(element);
       });
     }
-
-
   }
 
   addCreatureCombat(creature){
@@ -74,11 +65,16 @@ export class InitiativeComponent implements OnInit {
 
     var existing = this.combatSetupCreatures.find(element => element._id == creature._id);
     if(!existing){
-      creature.amount = 1;
+      if(creature.additionalInfo == undefined){
+        creature.additionalInfo = new CreatureAdditionalInfo();
+      }
+      creature.additionalInfo.amount = 1;
       this.combatSetupCreatures.push(creature);
+      this.calculateXpInfo();
       return;
     }
-    ++existing.amount;
+    ++existing.additionalInfo.amount;
+    this.calculateXpInfo();
   }
 
   addPlayerCombat(creature){
@@ -86,6 +82,7 @@ export class InitiativeComponent implements OnInit {
     if(!existing){
       this.combatSetupPlayers.push(creature);
     }
+    this.calculateXpInfo();
   }
 
   search(event){
@@ -124,54 +121,26 @@ export class InitiativeComponent implements OnInit {
     this.prevKeyword = this.keyword;
   }
 
-  openDialogInCombat(){
-    this.creatures = [];
-    this.creaturesService.getAllCreatures().subscribe(data => {
-      for(const[key, value] of Object.entries(data)){
-        this.creatures.push(value);
-      };
-    });
-
-    let passingData = { creatures: this.creatures, combat: true};
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = passingData;
-    dialogConfig.width = '500px';
-    let dialogRef = this.dialog.open(CombatDialogComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(value => {
-      if(value != null){
-        var newCreature = Object.assign({}, value);
-        this.setupCreature(newCreature);
-        var existing = this.combatCreatures.filter(element => element._id == newCreature._id);
-        if(existing.length > 0){
-          var newCreatureInfo = Object.assign({}, newCreature.creature);
-          newCreatureInfo.name = newCreatureInfo.name + " #" + ++existing.length ;
-          newCreature.creature = newCreatureInfo;
-        }
-        this.combatCreatures.push(newCreature);
-      };
-
-      this.sortInCombat();
-    });
-  }
-
   startCombat(){
-    this.combatSetup = false;
     var newCreature;
     var newCreatureInfo;
+    var newCreatureAdditionalInfo;
 
     this.combatSetupCreatures.forEach(element => {
-      if(element.amount == 1){
+      console.log(element);
+      if(element.additionalInfo.amount == 1){
         this.setupCreature(element);
         this.combatCreatures.push(element);
       } else {
-        for(var i = 1; i <= element.amount; i++){
+        for(var i = 1; i <= element.additionalInfo.amount; i++){
           newCreature = Object.assign({}, element);
           newCreatureInfo = Object.assign({}, element.creature);
-          this.setupCreature(newCreature);
-          newCreatureInfo.name = newCreatureInfo.name + " #" + i;
-
+          newCreatureAdditionalInfo = Object.assign({}, element.additionalInfo);
           newCreature.creature = newCreatureInfo;
+          newCreature.additionalInfo = newCreatureAdditionalInfo;
+          this.setupCreature(newCreature);
+          newCreatureInfo.name = element.creature.name + " #" + i;
+
           this.combatCreatures.push(newCreature);
         };
       }
@@ -179,62 +148,38 @@ export class InitiativeComponent implements OnInit {
 
     this.combatSetupPlayers.forEach(element => {
       newCreature = Object.assign({}, element);
-      newCreatureInfo = Object.assign({}, element.creature);
+      newCreatureInfo = Object.assign(newCreature.creature, element.creature);
       this.setupCreature(newCreature);
-      newCreature.creature = newCreatureInfo;
       this.combatCreatures.push(newCreature);
     });
 
-    this.sortInCombat();
+    this.combatSetup = false;
   }
 
   setupCreature(creature){
-    creature.initiative = this.utilService.calculateInitiative(creature);
-    creature.current_hit_points = creature.creature.hit_points;
-    creature.class = "";
-  }
-
-  initializeCombat(){
-    this.rounds = 1;
-    this.turn = 1;
-    this.currentCreature = this.combatCreatures[0];
-    this.currentCreature.class = "current-creature";
-  }
-
-  nextTurn(){
-    this.currentCreature.class = "";
-    var index = this.combatCreatures.indexOf(this.currentCreature);
-    if(++index < this.combatCreatures.length){
-      this.currentCreature = this.combatCreatures[index];
-      this.turn++;
-    } else {
-      this.currentCreature = this.combatCreatures[0];
-      this.turn = 1;
-      this.rounds++;
+    if(!creature.additionalInfo){
+      creature.additionalInfo = new CreatureAdditionalInfo();
     }
-    this.currentCreature.class = "current-creature";
+    creature.additionalInfo.initiative = this.utilService.calculateInitiative(creature);
+    creature.additionalInfo.current_hit_points = creature.creature.hit_points;
+    creature.additionalInfo.class = "";
   }
 
-  sortInCombat(){
-    this.combatCreatures.sort((a, b) => {
-      if(a.initiative == b.initiative){
-        if(a.creature.dexterity == b.creature.dexterity){
-          return a.creature.name.localeCompare(b.creature.name);
-        }
-        return b.creature.dexterity - a.creature.dexterity;
-      }
-      return b.initiative - a.initiative;
-    });
-  }
+  calculateXpInfo(){
+    if(!this.encounterXPInfo){
+      this.encounterXPInfo = new EncounterXPInfo();
+    }
 
-  displayCreatureInfo(creature){
-    this.creatureExpanded = creature;
+    this.encounterXPInfo.totalXp = this.calculateTotalXp();
+    this.encounterXPInfo.totalXpPerPlayer = this.calculateTotalXpPerPlayer();
+    this.encounterXPInfo.adjustedXp = this.calculateAdjustedXp();
+    this.encounterXPInfo.encounterDifficulty = this.calculateEncounterDifficulty();
   }
 
   calculateTotalXp(){
     var totalXp = 0;
     this.combatSetupCreatures.forEach(element => {
-      totalXp += this.utilService.crtoxp(element.creature.challenge_rating) * element.amount;
+      totalXp += this.utilService.crtoxp(element.creature.challenge_rating) * element.additionalInfo.amount;
     });
     return totalXp;
   }
@@ -247,11 +192,11 @@ export class InitiativeComponent implements OnInit {
     if(this.combatSetupCreatures.length > 0){
       var amountOfCreatures = 0;
       this.combatSetupCreatures.forEach(element => {
-        amountOfCreatures += element.amount;
+        amountOfCreatures += element.additionalInfo.amount;
       });
       return this.calculateTotalXp() * this.utilService.encounterMultiplier(amountOfCreatures);
     }
-    return "";
+    return null;
   }
 
   calculateEncounterDifficulty(){
@@ -280,74 +225,21 @@ export class InitiativeComponent implements OnInit {
     }
   }
 
-  deleteCreature(creature){
-    let index = this.getIndex(this.combatCreatures, creature);
-
-    this.combatCreatures.splice(index, 1);
-  }
-
   removePlayer(player){
-    let index = this.getIndex(this.combatSetupPlayers, player);
+    let index = this.utilService.getIndex(this.combatSetupPlayers, player);
 
     this.combatSetupPlayers.splice(index, 1);
+    this.calculateXpInfo();
   }
 
   removeCreatureSetup(creature){
-    let index = this.getIndex(this.combatSetupCreatures, creature);
+    let index = this.utilService.getIndex(this.combatSetupCreatures, creature);
 
-    if(this.combatSetupCreatures[index].amount !== undefined && this.combatSetupCreatures[index].amount > 1){
-      this.combatSetupCreatures[index].amount--;
+    if(this.combatSetupCreatures[index].additionalInfo.amount !== undefined && this.combatSetupCreatures[index].additionalInfo.amount > 1){
+      this.combatSetupCreatures[index].additionalInfo.amount--;
     } else {
       this.combatSetupCreatures.splice(index, 1);
     }
+    this.calculateXpInfo();
   }
-
-  getIndex(array, creature){
-    return array.map(function(item){
-      return item._id
-    }).indexOf(creature._id);
-  }
-}
-
-@Component({
-  selector: 'initiative-dialog',
-  templateUrl: './initiative.dialog.html',
-  styleUrls: ['./initiative.dialog.css']
-})
-export class CombatDialogComponent{
-  keyword = "";
-  prevKeyword = "";
-  filteredCreatures = [];
-
-  constructor(public dialogRef: MatDialogRef<CombatDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData){
-    this.filteredCreatures = data.creatures;
-  };
-
-  close() {
-    this.dialogRef.close(null);
-  };
-
-  search(event){
-    if(this.keyword == ""){
-      if(this.keyword != this.prevKeyword){
-        this.filteredCreatures = [];
-        this.data.creatures.forEach(element => {
-          this.filteredCreatures.push(element);
-        });
-        this.prevKeyword = this.keyword;
-      }
-      return
-    };
-
-    this.filteredCreatures = [];
-    this.data.creatures.forEach(element => {
-      if(element.creature.name.toLowerCase().indexOf(this.keyword.toLowerCase()) != -1)
-        this.filteredCreatures.push(element);
-    });
-    this.prevKeyword = this.keyword;
-  };
-
-  addCreature(creature){
-    this.dialogRef.close(creature);
-  };
 }

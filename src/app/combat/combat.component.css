@@ -1,0 +1,138 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+.wrapper{
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 20px;
+}
+
+.current-creature-info{
+  flex: 1 0 auto;
+  min-width: 20%;
+  max-width: 30%;
+}
+
+.current-creature-info-placeholder{
+  background-image: url("../../assets/images/Statblock background.jpg");
+  height: 500px;
+  color: rgba(0, 0, 0, 0.87);
+  box-shadow: 10px 20px 20px 5px rgba(0, 0, 0, 0.5);
+}
+
+.combat{
+  flex: 1 0 auto;
+  min-width: 20%;
+  max-width: 30%;
+}
+
+.combat-inner{
+  background-color: rgba(51, 51, 51, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+.creatures-tools{
+  display: flex;
+}
+
+.add-button, .sort-button{
+  margin: 5px;
+  flex: auto;
+}
+
+.combat-tools{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 10px;
+}
+
+.combat-tools-label{
+  color: rgba(255, 255, 255, 0.65);
+  margin-right: 10px;
+}
+
+.combat-tools-label{
+  margin-right: 5px;
+}
+
+.combat-tools-value, .info-label{
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.info-value{
+  color: rgba(255, 255, 255, 0.3);
+  margin-left: 2px;
+  margin-right: 5px;
+}
+
+.current-creature{
+  background-color: rgba(69, 77, 85, 0.5);
+}
+
+.clear_input{
+  text-align: center;
+  background-color: inherit;
+  color: rgba(255, 255, 255, 0.87);
+  width: 2em;
+  border: none;
+}
+
+.clear_input_name{
+  background-color: inherit;
+  border: none;
+  width: 100%;
+  color: rgba(255, 179, 102, 0.87);
+  font-size: 1.5em;
+}
+
+.hit-points-container{
+  display: flex;
+  align-items: center;
+}
+
+.hit-points{
+  min-height: 100%;
+}
+
+.line{
+  background-color: rgba(255, 255, 255, 0.87);
+  height: 1px;
+}
+
+.button_container{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.additional-info{
+  flex: 1 0 auto;
+  min-width: 20%;
+  max-width: 30%;
+}
+
+.button_delete{
+  margin: 0.1em 0;
+  padding: 0.4em;
+  border-radius: 0.2em;
+  transition: 500ms ease-in-out;
+  background-color: rgba(255, 77, 77, 0.6);
+}
+
+.button_delete:hover{
+  cursor: pointer;
+  border-radius: 0.6em;
+  background-color: rgba(255, 0, 0, 0.9);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+}

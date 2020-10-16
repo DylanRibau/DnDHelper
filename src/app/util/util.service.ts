@@ -65,4 +65,10 @@ export class UtilService{
     });
     return EncounterXPHelper.threshold[totalLevel];
   }
+
+  getIndex(array, creature){
+    return array.map(function(item){
+      return item._id
+    }).indexOf(creature._id);
+  }
 }

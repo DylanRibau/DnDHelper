@@ -21,12 +21,6 @@ input[type=number] {
   padding: 0.5em;
 }
 
-.combat, .current-creature-info, .additional-info{
-  flex: 1 0 auto;
-  min-width: 20%;
-  max-width: 30%;
-}
-
 .combat-setup{
   flex: 1 0 500px;
   margin-right: 20px;
@@ -36,27 +30,11 @@ input[type=number] {
   flex: 1 0 auto;
 }
 
-.combat-setup-inner, .combat-inner{
+.combat-setup-inner{
   background-color: rgba(51, 51, 51, 0.5);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-}
-
-.initiative-input{
-  text-align: center;
-  background-color: inherit;
-  color: rgba(255, 255, 255, 0.87);
-  width: 2em;
-  border: none;
-}
-
-.initiative-input-name{
-  background-color: inherit;
-  border: none;
-  width: 100%;
-  color: rgba(255, 179, 102, 0.87);
-  font-size: 1.5em;
 }
 
 .line{
@@ -68,7 +46,7 @@ h5{
   color: rgba(255, 179, 102, 0.87);
 }
 
-.info-label, .combat-tools-value{
+.info-label{
   color: rgba(255, 255, 255, 0.5);
 }
 
@@ -83,23 +61,10 @@ h5{
   margin-right: 10px;
 }
 
-.hit-points-container{
-  display: flex;
-  align-items: center;
-}
-
-.hit-points{
-  min-height: 100%;
-}
-
 .creatures-tools{
   display: flex;
 }
 
-.add-button, .sort-button{
-  margin: 5px;
-  flex: auto;
-}
 .combat-tools, .creatures-view-tools{
   display: flex;
   justify-content: space-between;
@@ -121,13 +86,6 @@ h5{
 
 .capital{
   font-size: 1.4em;
-}
-
-.current-creature-info-placeholder{
-  background-image: url("../../assets/images/Statblock background.jpg");
-  height: 500px;
-  color: rgba(0, 0, 0, 0.87);
-  box-shadow: 10px 20px 20px 5px rgba(0, 0, 0, 0.5);
 }
 
 .creatures-view-data{

@@ -1,12 +1,5 @@
-<div class="wrapper">
-  <div class="current-creature-info" *ngIf="rounds > 0">
-    <creature-info [creature]="creatureExpanded" *ngIf="creatureExpanded != null"></creature-info>
-    <div class="current-creature-info-placeholder" *ngIf="creatureExpanded == null">
-      <h1>Click a creatures info button to display it here!</h1>
-    </div>
-  </div>
-
-  <div class="combat-setup" *ngIf="combatSetup">
+<div class="wrapper" *ngIf="combatSetup">
+  <div class="combat-setup">
     <div class="combat-setup-inner">
       <div class="container">
         <h3>Group</h3>
@@ -35,7 +28,7 @@
                 <span class="info-value">{{creature.creature.challenge_rating_xp}}</span>
               </div>
             </td>
-            <td>x{{creature.amount}}</td>
+            <td>x{{creature.additionalInfo.amount}}</td>
             <td>
               <div class="button_container">
                 <a (click)="removeCreatureSetup(creature)" class="button_delete">
@@ -51,13 +44,13 @@
             <td colspan="2">
               <div>
                 <span class="info-label">Total Xp:</span>
-                <span class="info-value">{{calculateTotalXp()}}</span>
-                <span class="info-value" *ngIf="combatSetupPlayers.length > 0 && combatSetupCreatures.length > 0">(Per Player:{{calculateTotalXpPerPlayer()}})</span>
+                <span class="info-value">{{encounterXPInfo.totalXp}}</span>
+                <span class="info-value" *ngIf="combatSetupPlayers.length > 0 && combatSetupCreatures.length > 0">(Per Player:{{encounterXPInfo.totalXpPerPlayer}})</span>
               </div>
               <div>
                 <span class="info-label">Adjusted Xp:</span>
-                <span class="info-value">{{calculateAdjustedXp()}}</span>
-                <span class="info-value" *ngIf="combatSetupPlayers.length > 0 && combatSetupCreatures.length > 0">({{calculateEncounterDifficulty()}})</span>
+                <span class="info-value">{{encounterXPInfo.adjustedXp}}</span>
+                <span class="info-value" *ngIf="combatSetupPlayers.length > 0 && combatSetupCreatures.length > 0">({{encounterXPInfo.encounterDifficulty}})</span>
               </div>
             </td>
           </tr>
@@ -66,7 +59,7 @@
     </div>
   </div>
 
-  <div class="combat-setup-creatures-view" *ngIf="combatSetup">
+  <div class="combat-setup-creatures-view">
     <div class="combat-setup-inner">
       <div class="creatures-view-tools">
         <input class="searchbar" (keyup)="search($event)" type="text" placeholder="Search for creatures" [(ngModel)]="keyword">
@@ -109,66 +102,8 @@
       </table>
     </div>
   </div>
+</div>
 
-  <div class="combat" *ngIf="!combatSetup">
-    <div class="combat-inner">
-      <div class="creatures-tools">
-        <button class="btn btn-info sort-button" (click)="sortInCombat()">Sort</button>
-        <button class="btn btn-success add-button" (click)="openDialogInCombat()" mat-button>Add</button>
-      </div>
-      <div class="combat-tools">
-        <div>
-          <span class="combat-tools-label">Rounds</span>
-          <span class="combat-tools-value">{{rounds}}</span>
-        </div>
-        <div>
-          <span class="combat-tools-label">Turn</span>
-          <span class="combat-tools-value">{{turn}}</span>
-        </div>
-        <button class="btn btn-primary" (click)="initializeCombat()" *ngIf="rounds == 0">Start</button>
-        <button class="btn btn-primary" (click)="nextTurn()" *ngIf="rounds > 0">Next</button>
-      </div>
-      <table class="table table-dark table-hover">
-        <tbody>
-          <tr [className]="creature.class" *ngFor="let creature of combatCreatures">
-            <td>
-              <input class="initiative-input" type="number" [(ngModel)]="creature.initiative" />
-              <div></div>
-              <a (click)="displayCreatureInfo(creature)" class="btn btn-primary"><img src="assets/images/storage.png"></a>
-            </td>
-            <td>
-              <input class="initiative-input-name" type="text" [(ngModel)]="creature.creature.name" />
-              <div></div>
-              <span class="info-label">AC</span><span class="info-value">{{creature.creature.armor_class}}</span>
-              <div></div>
-              <span class="info-label">Str</span><span class="info-value">{{utilService.calculateModifierString(creature.creature.strength)}}</span>
-              <span class="info-label">Dex</span><span class="info-value">{{utilService.calculateModifierString(creature.creature.dexterity)}}</span>
-              <span class="info-label">Con</span><span class="info-value">{{utilService.calculateModifierString(creature.creature.constitution)}}</span>
-              <span class="info-label">Int</span><span class="info-value">{{utilService.calculateModifierString(creature.creature.intelligence)}}</span>
-              <span class="info-label">Wis</span><span class="info-value">{{utilService.calculateModifierString(creature.creature.wisdom)}}</span>
-              <span class="info-label">Cha</span><span class="info-value">{{utilService.calculateModifierString(creature.creature.charisma)}}</span>
-            </td>
-            <td class="hit-points-container">
-              <div class="hit-points">
-                <input class="initiative-input" type="number" [(ngModel)]="creature.current_hit_points" />
-                <div class="line"></div>
-                <input class="initiative-input" type="number" [(ngModel)]="creature.creature.hit_points" />
-              </div>
-            </td>
-            <td>
-              <div class="button_container">
-                <a (click)="deleteCreature(creature)" class="button_delete">
-                  <img src="assets/images/trash.png">
-                </a>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="additional-info" *ngIf="currentCreature != null">
-    <creature-info [creature]="currentCreature"></creature-info>
-  </div>
+<div *ngIf="!combatSetup">
+  <app-combat [creatures]="combatCreatures"></app-combat>
 </div>
