@@ -76,6 +76,7 @@ export class CombatComponent implements OnInit {
     dialogRef.afterClosed().subscribe(value => {
       if(value != null){
         let newCreature = Object.assign({}, value);
+        newCreature.additionalInfo = new CreatureAdditionalInfo();
         this.setupCreature(newCreature);
         let existing = this.creatures.filter(element => element._id == newCreature._id);
         if(existing.length > 0){
