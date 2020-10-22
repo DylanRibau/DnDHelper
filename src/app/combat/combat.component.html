@@ -12,6 +12,11 @@
         <button class="btn btn-info sort-button" (click)="sortInCombat()">Sort</button>
         <button class="btn btn-success add-button" (click)="openDialogInCombat()" mat-button>Add</button>
       </div>
+      <div class="wrapper">
+        <div>
+          <span class="combat-tools-value" *ngIf="interval != null">{{timer}}</span>
+        </div>
+      </div>
       <div class="combat-tools">
         <div>
           <span class="combat-tools-label">Rounds</span>

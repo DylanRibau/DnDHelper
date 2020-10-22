@@ -71,4 +71,8 @@ export class UtilService{
       return item._id
     }).indexOf(creature._id);
   }
+
+  strPadLeft(string,pad,length) {
+    return (new Array(length+1).join(pad)+string).slice(-length);
+  }
 }

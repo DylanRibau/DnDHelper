@@ -18,6 +18,10 @@ export class CombatComponent implements OnInit {
   currentCreature = null;
   creatureExpanded = null;
 
+  timer:string = "00:00";
+  time:number = 0;
+  interval;
+
   constructor(private creaturesService: CreaturesService,
               private dialog: MatDialog,
               private utilService: UtilService) { }
@@ -31,6 +35,7 @@ export class CombatComponent implements OnInit {
     this.turn = 1;
     this.currentCreature = this.creatures[0];
     this.currentCreature.additionalInfo.class = "current-creature";
+    this.startTimer();
   }
 
   nextTurn(){
@@ -45,6 +50,7 @@ export class CombatComponent implements OnInit {
       this.rounds++;
     }
     this.currentCreature.class = "current-creature";
+    this.resetTimer();
   }
 
   displayCreatureInfo(creature){
@@ -107,5 +113,25 @@ export class CombatComponent implements OnInit {
     creature.additionalInfo.initiative = this.utilService.calculateInitiative(creature);
     creature.additionalInfo.current_hit_points = creature.creature.hit_points;
     creature.additionalInfo.class = "";
+  }
+
+  startTimer(){
+    this.interval = setInterval(() => {
+      this.time++;
+      this.setupTimer();
+    }, 1000);
+  }
+
+  setupTimer(){
+    let minutes = Math.floor(this.time / 60);
+    let seconds = this.time - minutes * 60;
+    this.timer = this.utilService.strPadLeft(minutes, '0', 2) + ':' + this.utilService.strPadLeft(seconds, '0', 2);
+  }
+
+  resetTimer(){
+    clearInterval(this.interval);
+    this.time = 0;
+    this.timer = "00:00";
+    this.startTimer();
   }
 }
