@@ -127,7 +127,6 @@ export class InitiativeComponent implements OnInit {
     var newCreatureAdditionalInfo;
 
     this.combatSetupCreatures.forEach(element => {
-      console.log(element);
       if(element.additionalInfo.amount == 1){
         this.setupCreature(element);
         this.combatCreatures.push(element);

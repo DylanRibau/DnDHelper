@@ -52,7 +52,9 @@ export class CombatComponent implements OnInit {
   }
 
   deleteCreature(creature){
-    let index = this.utilService.getIndex(this.creatures, creature);
+    let index = this.creatures.map(function(item){
+      return item.creature;
+    }).indexOf(creature.creature);
 
     this.creatures.splice(index, 1);
   }
