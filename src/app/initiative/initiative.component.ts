@@ -3,6 +3,7 @@ import { CreaturesService } from '@app/creatures/creatures.service';
 import { UtilService } from '@app/util/util.service';
 import { CreatureAdditionalInfo } from '@app/model/CreatureAdditionalInfo';
 import { EncounterXPInfo } from '@app/model/EncounterXPInfo';
+import { GroupXPInfo } from '@app/model/GroupXPInfo';
 
 @Component({
   selector: 'app-initiative',
@@ -22,6 +23,7 @@ export class InitiativeComponent implements OnInit {
   combatCreatures = [];
   combatSetup:boolean = true;
   encounterXPInfo:EncounterXPInfo;
+  groupXPInfo:GroupXPInfo;
 
   constructor(private creaturesService: CreaturesService,
               private utilService: UtilService) { }
@@ -82,6 +84,7 @@ export class InitiativeComponent implements OnInit {
     if(!existing){
       this.combatSetupPlayers.push(creature);
     }
+    this.calculateGroupXpInfo();
     this.calculateXpInfo();
   }
 
@@ -175,6 +178,33 @@ export class InitiativeComponent implements OnInit {
     this.encounterXPInfo.encounterDifficulty = this.calculateEncounterDifficulty();
   }
 
+  calculateGroupXpInfo(){
+    var easy = 0;
+    var medium = 0;
+    var hard = 0;
+    var deadly = 0;
+    if(!this.groupXPInfo){
+      this.groupXPInfo = new GroupXPInfo();
+    } else {
+      this.groupXPInfo.reset();
+    }
+
+    this.combatSetupPlayers.forEach(element => {
+      console.log(element.creature.name)
+      var thresholds = this.utilService.levelToXpThreshold(element.creature.level);
+      console.log(thresholds);
+      easy += thresholds.Easy;
+      medium += thresholds.Medium;
+      hard += thresholds.Hard;
+      deadly += thresholds.Deadly;
+    });
+
+    this.groupXPInfo.easy = easy;
+    this.groupXPInfo.medium = medium;
+    this.groupXPInfo.hard = hard;
+    this.groupXPInfo.deadly = deadly;
+  }
+
   calculateTotalXp(){
     var totalXp = 0;
     this.combatSetupCreatures.forEach(element => {
@@ -229,6 +259,7 @@ export class InitiativeComponent implements OnInit {
 
     this.combatSetupPlayers.splice(index, 1);
     this.calculateXpInfo();
+    this.calculateGroupXpInfo();
   }
 
   removeCreatureSetup(creature){

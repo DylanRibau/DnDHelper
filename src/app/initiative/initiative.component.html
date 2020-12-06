@@ -9,6 +9,16 @@
             <img src="assets/images/trash.png">
           </a>
         </div>
+        <div *ngIf="groupXPInfo && groupXPInfo.easy">
+          <span class="info-label">Easy: </span>
+          <span class="info-value">{{groupXPInfo.easy}}</span>
+          <span class="info-label">Medium: </span>
+          <span class="info-value">{{groupXPInfo.medium}}</span>
+          <span class="info-label">Hard: </span>
+          <span class="info-value">{{groupXPInfo.hard}}</span>
+          <span class="info-label">Deadly: </span>
+          <span class="info-value">{{groupXPInfo.deadly}}</span>
+        </div>
       </div>
 
       <div class="white-divider"></div>
