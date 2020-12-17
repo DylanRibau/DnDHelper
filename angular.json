@@ -28,7 +28,10 @@
             ],
             "scripts": [
               "./node_modules/pretty-print-json/dist/pretty-print-json.js"
-            ]
+            ],
+            "allowedCommonJsDependencies": [
+                "crypto-js"
+             ]
           },
           "configurations": {
             "production": {
