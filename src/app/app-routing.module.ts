@@ -7,16 +7,19 @@ import { IndexComponent } from './index/index.component';
 import { AddCreaturesComponent } from './add-creatures/add-creatures.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { CreaturesGuard } from './guards/creatures.guard';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/index', pathMatch: 'full'},
-  { path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
-  { path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
+  { path: 'login', component: LoginComponent},
+  //{ path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
+  { path: 'register', component: RegisterComponent},
+  //{ path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
   { path: 'index', component: IndexComponent},
-  { path: 'creatures', component: CreaturesComponent},
+  { path: 'creatures', component: CreaturesComponent, canActivate: [CreaturesGuard]},
   { path: 'initiative', component: InitiativeComponent},
-  { path: 'add-creature', component: AddCreaturesComponent}
+  { path: 'add-creature', component: AddCreaturesComponent, canActivate: [CreaturesGuard]}
 ];
 
 @NgModule({

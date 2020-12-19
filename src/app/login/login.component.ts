@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthUtil } from '@app/util/auth.util';
+import { Router } from '@angular/router';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -7,7 +9,7 @@ import { AuthUtil } from '@app/util/auth.util';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  user = "";
+  username = "";
   password = "";
 
   constructor(private authUtil: AuthUtil) { }
@@ -15,11 +17,16 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login(){
-    if(this.authUtil.login({username: this.user, password: this.password})){
-      console.log("logged in");
-    } else {
-      console.log("oof");
-    }
+  login() {
+    let value = null;
+    this.authUtil.salt({username: this.username})
+      .pipe(
+        mergeMap(response => {
+          return this.authUtil.login({username: this.username, password: this.password, salt: response});
+        })
+      )
+      .subscribe(response => {
+        console.log(response);
+      });
   }
 }

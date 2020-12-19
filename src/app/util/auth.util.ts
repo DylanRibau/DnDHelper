@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
-import { catchError, mapTo, tap } from 'rxjs/operators';
+import { catchError, mapTo, tap, map } from 'rxjs/operators';
 import { Tokens } from '@app/model/tokens';
 import * as CryptoJS from 'crypto-js';
+import { User } from '@app/model/user';
+import { IUsersResponse } from '@app/data/IUsersResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -13,24 +15,47 @@ export class AuthUtil {
   private readonly JWT_TOKEN = 'JWT_TOKEN';
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
   private loggedUser: string;
-  private encoder = new TextEncoder();
 
   constructor(private http: HttpClient){ }
 
-  login(user: {username: string, password: string}): Observable<boolean> {
-    return this.http.post<any>('/api/login', user)
+  register(user: User): Observable<string> {
+    user.password = this.saltAndHash(user.password);
+    return this.http.post<any>('/api/users/register', user)
+      .pipe(
+        tap(tokens => {
+          this.doLoginUser(user.username, tokens);
+        }),
+        mapTo(""),
+        catchError(error => {
+          return of(error.error.message);
+        })
+      );
+  };
+
+  login(user: {username: string, password: string, salt: string}): Observable<string> {
+    user.password = this.saltAndHash(user.password, user.salt);
+    return this.http.post<any>('/api/users/login', user)
       .pipe(
         tap(tokens => this.doLoginUser(user.username, tokens)),
-        mapTo(true),
+        mapTo("Logged in"),
         catchError(error => {
-          alert(error.error);
-          return of(false);
+          return of("Invalid Password");
+        })
+      );
+  };
+
+  salt(username: {username: string}): Observable<string> {
+    return this.http.post<any>('/api/users/salt', username)
+      .pipe(
+        map(response => response.salt),
+        catchError(error => {
+          return Observable.throw(error);
         })
       );
   }
 
   logout() {
-    return this.http.post<any>('/api/logout',{
+    return this.http.post<any>('/api/users/logout',{
       'refreshToken': this.getRefreshToken()
     }).pipe(
       tap(() => this.doLogoutUser()),
@@ -40,56 +65,57 @@ export class AuthUtil {
         return of(false);
       })
     );
-  }
+  };
 
   isLoggedIn() {
     return !!this.getJwtToken();
-  }
+  };
 
   refreshToken() {
-    return this.http.post<any>('/api/refresh', {
+    return this.http.post<any>('/api/users/refresh', {
       'refreshToken': this.getRefreshToken()
     }).pipe(
       tap((tokens: Tokens) => {
         this.storeJwtToken(tokens.jwt);
       })
     );
-  }
+  };
 
   getJwtToken() {
     return localStorage.getItem(this.JWT_TOKEN);
-  }
+  };
 
-  private doLoginUser(username: string, tokens: Tokens){
+  doLoginUser(username: string, tokens: Tokens){
     this.loggedUser = username;
     this.storeTokens(tokens);
-  }
+  };
 
-  private doLogoutUser() {
+  doLogoutUser() {
     this.loggedUser = null;
     this.removeTokens();
-  }
+  };
 
-  private getRefreshToken() {
+  getRefreshToken() {
     return localStorage.getItem(this.REFRESH_TOKEN);
-  }
+  };
 
-  private storeJwtToken(jwt: string) {
+  storeJwtToken(jwt: string) {
     localStorage.setItem(this.JWT_TOKEN, jwt);
-  }
+  };
 
-  private storeTokens(tokens: Tokens) {
+  storeTokens(tokens: Tokens) {
     localStorage.setItem(this.JWT_TOKEN, tokens.jwt);
     localStorage.setItem(this.REFRESH_TOKEN, tokens.refreshToken);
-  }
+  };
 
-  private removeTokens() {
+  removeTokens() {
     localStorage.removeItem(this.JWT_TOKEN);
     localStorage.removeItem(this.REFRESH_TOKEN);
-  }
+  };
 
-  private saltAndHash(password:string) {
-      var salt = CryptoJS.lib.WordArray.random(128/8);
-      return salt + ":" + CryptoJS.PBKDF2(salt+user.password, salt, {keySize: 128/32});
-  }
+  saltAndHash(password: string, salt = null) {
+    if(salt == null)
+      salt = CryptoJS.lib.WordArray.random(128/8);
+    return salt.toString() + ":" + CryptoJS.PBKDF2(salt.toString() + password, salt.toString(), {keySize: 128/32});
+  };
 }

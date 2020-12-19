@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CreaturesService } from './creatures.service';
 import { AddCreaturesService } from '@app/add-creatures/add-creatures.service';
-import { IResponse } from '@app/data/api-response.js';
+import { ICreatureResponse } from '@app/data/ICreatureResponse.js';
 import { Router } from '@angular/router';
 
 @Component({
@@ -64,7 +64,7 @@ export class CreaturesComponent implements OnInit {
 
   deleteCreature(creature){
     if(confirm("Are you sure you want to delete: " + creature.creature.name + "?")){
-      this.creaturesService.deleteCreature(creature._id).subscribe(function(data: IResponse) {
+      this.creaturesService.deleteCreature(creature._id).subscribe(function(data: ICreatureResponse) {
         if(data.message != "Successfully Deleted")
           return;
       });

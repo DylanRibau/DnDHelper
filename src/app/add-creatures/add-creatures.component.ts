@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AddCreaturesService } from './add-creatures.service';
-import { IResponse } from '@app/data/api-response';
+import { ICreatureResponse } from '@app/data/ICreatureResponse';
 import { Creature } from '@app/model/Creature';
 import { SimpleKVnumber } from '@app/model/SimpleKVnumber';
 import { SimpleKVstring } from '@app/model/SimpleKVstring';
@@ -109,11 +109,11 @@ export class AddCreaturesComponent implements OnInit {
 
     if(this.creaturesService.creature != null){
       this.creaturesService.creature.creature = this.creature;
-      this.creaturesService.putCreature(this.creaturesService.creature).subscribe(function(data: IResponse){
+      this.creaturesService.putCreature(this.creaturesService.creature).subscribe(function(data: ICreatureResponse){
       });
       this.creaturesService.creature = null;
     } else {
-      this.creaturesService.postCreature(this.creature).subscribe(function(data: IResponse){});
+      this.creaturesService.postCreature(this.creature).subscribe(function(data: ICreatureResponse){});
       this.status = "Creature Successfully added";
     }
     this.creature = new Creature();

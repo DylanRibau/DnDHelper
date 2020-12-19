@@ -1,1 +1,20 @@
-<p>register works!</p>
+<div>
+  <span>Email</span>
+  <input type="text" [(ngModel)]="email" />
+</div>
+
+<div>
+  <span>Username</span>
+  <input type="text" [(ngModel)]="user" />
+</div>
+
+<div>
+  <span>Password</span>
+  <input type="password" [(ngModel)]="password" />
+</div>
+
+<div>
+  <span>{{error}}</span>
+</div>
+
+<button type="button" (click)="register()">Register</button>
