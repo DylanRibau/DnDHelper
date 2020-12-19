@@ -11,10 +11,12 @@ import { mergeMap } from 'rxjs/operators';
 export class LoginComponent implements OnInit {
   username = "";
   password = "";
+  error = "";
 
-  constructor(private authUtil: AuthUtil) { }
+  constructor(private authUtil: AuthUtil, private router: Router) { }
 
   ngOnInit(): void {
+
   }
 
   login() {
@@ -26,7 +28,11 @@ export class LoginComponent implements OnInit {
         })
       )
       .subscribe(response => {
-        console.log(response);
+        if(response == "Logged in"){
+          this.router.navigate(['/index']);
+        } else {
+          this.error = response;
+        }
       });
   }
 }

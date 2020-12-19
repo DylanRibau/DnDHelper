@@ -8,4 +8,9 @@
   <input type="password" [(ngModel)]="password" />
 </div>
 
+<div>
+  <span>{{error}}</span>
+</div>
+
+<button type="button" routerLink="/register">Register An Account</button>
 <button type="button" (click)="login()">Login</button>

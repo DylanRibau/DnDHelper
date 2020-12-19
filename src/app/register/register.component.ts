@@ -37,11 +37,6 @@ export class RegisterComponent implements OnInit {
           this.error = message;
         }
       });
-      // if(response == ""){
-      //   console.log("User created!");
-      // } else {
-      //   this.error = response;
-      // }
     }
 
 }
