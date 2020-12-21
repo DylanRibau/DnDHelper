@@ -20,23 +20,28 @@ export class RegisterComponent implements OnInit {
     }
 
     register(){
-      this.authUtil.register(
-        {
-          id: Guid.raw(),
-          role: "basic",
-          email: this.email,
-          username: this.user,
-          password: this.password,
-          created: null
-        }
-      )
-      .subscribe(message => {
-        if(message == ""){
-          this.router.navigate(['/index']);
-        } else {
-          this.error = message;
-        }
-      });
+      if(this.email != "" && this.user != "" && this.password != ""){
+        this.error = "";
+        this.authUtil.register(
+          {
+            id: Guid.raw(),
+            role: "basic",
+            email: this.email,
+            username: this.user,
+            password: this.password,
+            created: null
+          }
+        )
+        .subscribe(message => {
+          if(message == ""){
+            this.router.navigate(['/index']);
+          } else {
+            this.error = message;
+          }
+        });
+      } else {
+        this.error = "Please fill in all the fields";
+      }
     }
 
 }

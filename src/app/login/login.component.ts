@@ -20,8 +20,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    let value = null;
-    this.authUtil.salt({username: this.username})
+    if(this.username != "" && this.password != ""){
+      this.error = "";
+      let value = null;
+      this.authUtil.salt({username: this.username})
       .pipe(
         mergeMap(response => {
           return this.authUtil.login({username: this.username, password: this.password, salt: response});
@@ -34,5 +36,8 @@ export class LoginComponent implements OnInit {
           this.error = response;
         }
       });
+    } else {
+        this.error = "Please fill in all the fields";
+    }
   }
 }
