@@ -1,0 +1,30 @@
+.section{
+  width: 50vw;
+  margin: auto;
+  margin-bottom: 3vh;
+}
+
+.login_button{
+  width: 80%;
+  margin-left: 10%;
+  padding: 10px;
+  text-align: center;
+  background-color: rgba(255, 140, 26, 0.9);
+  border-radius: 5px;
+  text-decoration: none;
+  transition: 500ms ease-in-out;
+}
+
+.login_button:hover{
+  background-color: rgba(255, 166, 77, 0.9);
+  border-radius: 10px;
+}
+
+.login_text{
+  display: inline-block;
+  color: rgba(0, 0, 51, 0.8);
+}
+
+.errors{
+  color: red;
+}

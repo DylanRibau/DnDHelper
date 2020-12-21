@@ -22,3 +22,62 @@ h1, nav{
 .navbar-brand{
     float: left;
 }
+
+.input_pair{
+  position: relative;
+  flex: auto;
+}
+
+.input_stnd{
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  padding: 12px 6px;
+  border: 2px solid grey;
+  background: none;
+  transition: 200ms ease;
+}
+
+.input_stnd:not(:placeholder-shown){
+  padding: 4px 6px 20px 6px;
+  background: white;
+}
+
+.input_stnd:focus{
+  padding: 4px 6px 20px 6px;
+  outline: 0;
+  background: white;
+  border: 2px solid rgb(200, 89, 4);
+}
+
+.input_pair label,
+.input_pair_sm label{
+  width: 100%;
+  margin-bottom: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  padding: 13px 6px;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: white;
+  transition: 200ms ease;
+}
+
+.input_stnd:focus + label, .input_stnd:not(:placeholder-shown) + label{
+  top: 100%;
+  margin-top: -16px;
+  padding: 0 6px;
+  z-index: 3;
+  font-size: 70%;
+  text-transform: uppercase;
+  background-color: rgb(200, 89, 4);
+  color: white;
+}
+
+.input_stnd:not(:focus):not(:placeholder-shown) + label{
+  background-color: grey;
+}

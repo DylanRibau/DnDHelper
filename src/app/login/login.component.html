@@ -1,16 +1,26 @@
-<div>
-  <span>Username</span>
-  <input type="text" [(ngModel)]="username" />
+<div class="section">
+  <div class="input_pair">
+    <input class="input_stnd" type="text" name="username" placeholder=" " [(ngModel)]="username" required/>
+    <label for="username">Username</label>
+  </div>
 </div>
 
-<div>
-  <span>Password</span>
-  <input type="password" [(ngModel)]="password" />
+<div class="section">
+  <div class="input_pair">
+    <input class="input_stnd" type="password" name="password" placeholder=" " [(ngModel)]="password" required/>
+    <label for="password">Password</label>
+  </div>
 </div>
 
-<div>
-  <span>{{error}}</span>
+
+<div class="section">
+  <a class="login_button" type="button" (click)="login()"><span class="login_text">Login</span></a>
 </div>
 
-<button type="button" routerLink="/register">Register An Account</button>
-<button type="button" (click)="login()">Login</button>
+<div class="section">
+  <a type="button" routerLink="/register">Sign Up</a>
+</div>
+
+<div class="section">
+  <span class="errors">{{error}}</span>
+</div>
