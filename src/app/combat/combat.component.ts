@@ -5,6 +5,7 @@ import { CreatureAdditionalInfo } from '@app/model/CreatureAdditionalInfo';
 import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { CreaturesDialogComponent } from '@app/creatures-dialog/creatures-dialog.component';
 import { DialogData } from '@app/model/DialogData';
+import { AuthUtil } from '@app/util/auth.util';
 
 @Component({
   selector: 'app-combat',
@@ -24,7 +25,8 @@ export class CombatComponent implements OnInit {
 
   constructor(private creaturesService: CreaturesService,
               private dialog: MatDialog,
-              private utilService: UtilService) { }
+              private utilService: UtilService,
+              private authUtil: AuthUtil) { }
 
   ngOnInit(): void {
     this.sortInCombat();
@@ -67,7 +69,7 @@ export class CombatComponent implements OnInit {
 
   openDialogInCombat(){
     let allCreatures = [];
-    this.creaturesService.getAllCreatures().subscribe(data => {
+    this.creaturesService.getAllCreatures(this.authUtil.getUserId()).subscribe(data => {
       for(const[key, value] of Object.entries(data)){
         allCreatures.push(value);
       };

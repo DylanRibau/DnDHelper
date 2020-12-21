@@ -3,6 +3,7 @@ import { CreaturesService } from './creatures.service';
 import { AddCreaturesService } from '@app/add-creatures/add-creatures.service';
 import { ICreatureResponse } from '@app/data/ICreatureResponse.js';
 import { Router } from '@angular/router';
+import { AuthUtil } from '@app/util/auth.util';
 
 @Component({
   selector: 'app-creatures',
@@ -20,7 +21,8 @@ export class CreaturesComponent implements OnInit {
 
   constructor(private creaturesService: CreaturesService,
               private addCreatureService: AddCreaturesService,
-              private router: Router) { }
+              private router: Router,
+              private authUtil: AuthUtil) { }
 
   ngOnInit(): void {
     this.grabAllCreatures();
@@ -34,7 +36,7 @@ export class CreaturesComponent implements OnInit {
   };
 
   grabAllCreatures(){
-    this.creaturesService.getAllCreatures().subscribe(data => {
+    this.creaturesService.getAllCreatures(this.authUtil.getUserId()).subscribe(data => {
       for(const[key, value] of Object.entries(data)){
         this.allCreatures.push(value);
         this.displayedCreatures.push(value);

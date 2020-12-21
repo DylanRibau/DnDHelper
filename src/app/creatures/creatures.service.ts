@@ -9,8 +9,8 @@ import { catchError, retry } from 'rxjs/operators';
 export class CreaturesService{
   constructor(private http: HttpClient) { }
 
-  getAllCreatures() {
-    return this.http.get('/api/creatures');
+  getAllCreatures(id: string) {
+    return this.http.get('/api/creatures/' + id);
   }
 
   deleteCreature(id){

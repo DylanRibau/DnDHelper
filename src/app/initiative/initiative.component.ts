@@ -4,6 +4,7 @@ import { UtilService } from '@app/util/util.service';
 import { CreatureAdditionalInfo } from '@app/model/CreatureAdditionalInfo';
 import { EncounterXPInfo } from '@app/model/EncounterXPInfo';
 import { GroupXPInfo } from '@app/model/GroupXPInfo';
+import { AuthUtil } from '@app/util/auth.util';
 
 @Component({
   selector: 'app-initiative',
@@ -26,10 +27,11 @@ export class InitiativeComponent implements OnInit {
   groupXPInfo:GroupXPInfo;
 
   constructor(private creaturesService: CreaturesService,
-              private utilService: UtilService) { }
+              private utilService: UtilService,
+              private authUtil: AuthUtil) { }
 
   ngOnInit(): void {
-    this.creaturesService.getAllCreatures().subscribe(data => {
+    this.creaturesService.getAllCreatures(this.authUtil.getUserId()).subscribe(data => {
       for(const[key, value] of Object.entries(data)){
         if(value.creature.challenge_rating == "Player Character"){
           this.playerCharacters.push(value);
