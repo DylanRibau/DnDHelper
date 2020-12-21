@@ -12,7 +12,7 @@ export class AppComponent {
 
   constructor(private authUtil: AuthUtil, private router: Router){
     router.events.subscribe(result => {
-      this.checkLoggedIn();      
+      this.checkLoggedIn();
     });
   }
 
@@ -27,5 +27,6 @@ export class AppComponent {
   logout() {
     this.authUtil.doLogoutUser();
     this.isLoggedIn = false;
+    this.router.navigate(['/index']);
   }
 }

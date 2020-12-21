@@ -10,6 +10,7 @@ import { Action } from '@app/model/Action';
 import { TimeConstraint } from '@app/model/TimeConstraint';
 import { SpellcastingLevel } from '@app/model/SpellcastingLevel';
 import { LegendaryActions } from '@app/model/LegendaryActions';
+import { AuthUtil } from '@app/util/auth.util';
 
 @Component({
   selector: 'app-add-creatures',
@@ -25,7 +26,7 @@ export class AddCreaturesComponent implements OnInit {
   title = "";
   fileUploaded: File;
 
-  constructor(private creaturesService: AddCreaturesService) { }
+  constructor(private creaturesService: AddCreaturesService, private authUtil: AuthUtil) { }
 
   ngOnInit(): void {
     if(this.creaturesService.creature){
@@ -106,6 +107,12 @@ export class AddCreaturesComponent implements OnInit {
         }
       });
     }
+
+    if(this.authUtil.getUserRole() == this.authUtil.ADMIN_ROLE)
+      this.creature.user = this.authUtil.ADMIN_ROLE;
+    else
+      this.creature.user = this.authUtil.getUserId();
+
 
     if(this.creaturesService.creature != null){
       this.creaturesService.creature.creature = this.creature;

@@ -14,7 +14,11 @@ export class AuthUtil {
 
   private readonly JWT_TOKEN = 'JWT_TOKEN';
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
-  private loggedUser: string;
+  private readonly USER_ID = 'USER_ID';
+  private readonly USER_ROLE = 'USER_ROLE';
+  private readonly USER_NAME = 'USER_NAME';
+
+  public readonly ADMIN_ROLE = 'admin';
 
   constructor(private http: HttpClient){ }
 
@@ -23,7 +27,7 @@ export class AuthUtil {
     return this.http.post<any>('/api/users/register', user)
       .pipe(
         tap(tokens => {
-          this.doLoginUser(user.username, tokens);
+          this.doLoginUser(user.username, tokens, user.id, user.role);
         }),
         mapTo(""),
         catchError(error => {
@@ -36,7 +40,7 @@ export class AuthUtil {
     user.password = this.saltAndHash(user.password, user.salt);
     return this.http.post<any>('/api/users/login', user)
       .pipe(
-        tap(tokens => this.doLoginUser(user.username, tokens)),
+        tap(tokens => this.doLoginUser(user.username, tokens, tokens.id, tokens.role)),
         mapTo("Logged in"),
         catchError(error => {
           return of("Invalid Password");
@@ -85,13 +89,13 @@ export class AuthUtil {
     return localStorage.getItem(this.JWT_TOKEN);
   };
 
-  doLoginUser(username: string, tokens: Tokens){
-    this.loggedUser = username;
+  doLoginUser(username: string, tokens: Tokens, id: string, role: string){
+    this.storeUserInfo(id, role, username);
     this.storeTokens(tokens);
   };
 
   doLogoutUser() {
-    this.loggedUser = null;
+    this.removeUserInfo();
     this.removeTokens();
   };
 
@@ -118,4 +122,28 @@ export class AuthUtil {
       salt = CryptoJS.lib.WordArray.random(128/8);
     return salt.toString() + ":" + CryptoJS.PBKDF2(salt.toString() + password, salt.toString(), {keySize: 128/32});
   };
+
+  storeUserInfo(id: string, role: string, username: string){
+    localStorage.setItem(this.USER_ID, id);
+    localStorage.setItem(this.USER_ROLE, role);
+    localStorage.setItem(this.USER_NAME, username);
+  }
+
+  removeUserInfo(){
+    localStorage.removeItem(this.USER_ID);
+    localStorage.removeItem(this.USER_ROLE);
+    localStorage.removeItem(this.USER_NAME);
+  }
+
+  getUserId(){
+    return localStorage.getItem(this.USER_ID);
+  }
+
+  getUserRole(){
+    return localStorage.getItem(this.USER_ROLE);
+  }
+
+  getUsername(){
+    return localStorage.getItem(this.USER_NAME);
+  }
 }

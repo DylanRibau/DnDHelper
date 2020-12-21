@@ -6,6 +6,7 @@ import { Spellcasting } from './Spellcasting';
 import { LegendaryActions } from './LegendaryActions';
 
 export class Creature {
+  user: string;
   name: string;
   size: string;
   type: string;
