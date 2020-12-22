@@ -1,1 +1,1 @@
-web:ng serve --prod
+web:node server.js

@@ -1,7 +1,0 @@
-{
-  "/api/*" : {
-    "target" : "https://murmuring-fortress-32158.herokuapp.com",
-    "secure" : "false",
-    "changeOrigin" : true
-  }
-}
