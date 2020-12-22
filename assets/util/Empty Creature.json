@@ -1,0 +1,23 @@
+{
+	"name": "Default",
+	"size": "",
+	"type": "",
+	"alignment": "",
+	"armor_class": 10,
+	"hit_points": 10,
+	"hit_dice": "",
+	"speed": [
+		{
+			"name": "",
+			"value": "30 ft."
+		}
+	],
+	"strength": 10,
+	"dexterity": 10,
+	"constitution": 10,
+	"intelligence": 10,
+	"wisdom": 10,
+	"charisma": 10,
+	"languages": "",
+	"challenge_rating": "0"
+}
