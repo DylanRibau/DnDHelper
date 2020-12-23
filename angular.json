@@ -30,8 +30,8 @@
               "./node_modules/pretty-print-json/dist/pretty-print-json.js"
             ],
             "allowedCommonJsDependencies": [
-                "crypto-js"
-             ]
+              "crypto-js"
+            ]
           },
           "configurations": {
             "production": {
@@ -122,8 +122,13 @@
               "devServerTarget": "DnDHelper:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "DnDHelper"
 }

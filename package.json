@@ -7,14 +7,17 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --aot --target=production"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^10.0.11",
     "@angular/cdk": "^10.1.3",
+    "@angular/cli": "~10.0.2",
     "@angular/common": "~10.0.3",
     "@angular/compiler": "~10.0.3",
+    "@angular/compiler-cli": "~10.0.3",
     "@angular/core": "~10.0.3",
     "@angular/forms": "~10.0.3",
     "@angular/material": "^10.1.3",
@@ -22,10 +25,17 @@
     "@angular/platform-browser-dynamic": "~10.0.3",
     "@angular/router": "~10.0.3",
     "crypto-js": "^4.0.0",
+    "express": "^4.17.1",
     "guid-typescript": "^1.0.9",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.8",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
     "pretty-print-json": "^0.2.2",
+    "rand-token": "^1.0.1",
     "rxjs": "^6.5.5",
     "tslib": "^2.0.0",
+    "typescript": "~3.9.5",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
@@ -35,6 +45,7 @@
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
+    "angular-cli-ghpages": "^1.0.0-rc.1",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",
@@ -50,5 +61,9 @@
   },
   "browser": {
     "crypto": false
+  },
+  "engines": {
+    "node": "12.18.2",
+    "npm": "6.14.5"
   }
 }

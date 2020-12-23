@@ -9,7 +9,7 @@ var ADMIN_USER = 'admin';
 //Set the port
 let port = process.env.PORT;
 if(port == null || port == ""){
-  port = 3000;
+  port = 8080;
 }
 
 //config files
@@ -55,10 +55,6 @@ function genTokens(user){
 }
 
 //Defining routes
-app.get('/', function(req, res) {
-  return res.sendFile('index.html', {root: 'dist/DnDHelper/'});
-});
-
 app.get('/api/creatures/:user_id', function(req, res){
   Creature.find({
     $or:[
@@ -72,6 +68,10 @@ app.get('/api/creatures/:user_id', function(req, res){
 
     return res.json(creatures); //return all creatures in JSON format
   });
+});
+
+app.get('/*', function(req, res) {
+  return res.sendFile('index.html', {root: 'dist/DnDHelper/'});
 });
 
 //Creatures
