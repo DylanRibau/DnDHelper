@@ -76,13 +76,15 @@
           <a (click)="displayCreature(creature)" class="button button-view">
             <img src="assets/images/storage.png">
           </a>
-          <a (click)="editCreature(creature)" class="button button-edit">
-            <img src="assets/images/edit.png">
-          </a>
           <a (click)="downloadCreature(creature)" class="button button-download">
             <img src="assets/images/file.png">
           </a>
-          <a (click)="deleteCreature(creature)" class="button button-delete">
+          <a class="transparent-parent" *ngIf="!creature.isUsers"><img class="transparent" src="assets/images/edit.png"></a>
+          <a class="transparent-parent" *ngIf="!creature.isUsers"><img class="transparent" src="assets/images/edit.png"></a>
+          <a (click)="editCreature(creature)" class="button button-edit" *ngIf="creature.isUsers">
+            <img src="assets/images/edit.png">
+          </a>
+          <a (click)="deleteCreature(creature)" class="button button-delete" *ngIf="creature.isUsers">
             <img src="assets/images/trash.png">
           </a>
         </td>

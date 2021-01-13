@@ -38,6 +38,10 @@ export class CreaturesComponent implements OnInit {
   grabAllCreatures(){
     this.creaturesService.getAllCreatures(this.authUtil.getUserId()).subscribe(data => {
       for(const[key, value] of Object.entries(data)){
+        if(value.creature.user == this.authUtil.getUserId())
+          value.isUsers = true;
+        else
+          value.isUsers = false;
         this.allCreatures.push(value);
         this.displayedCreatures.push(value);
       };

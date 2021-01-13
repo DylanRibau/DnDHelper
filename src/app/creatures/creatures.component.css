@@ -124,6 +124,15 @@ table th{
   flex-wrap: wrap;
 }
 
+.transparent{
+  opacity: 0;
+}
+
+.transparent-parent{
+  margin: 0.1em 0;
+  padding: 0.4em;
+}
+
 .button:hover{
   border-radius: 0.6em;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
